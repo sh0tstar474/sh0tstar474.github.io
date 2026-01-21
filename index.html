@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of Deven Hodder - Full-stack developer, 3D artist, and UI/UX designer">
+    <meta name="author" content="Deven Hodder">
+    <title>Deven Hodder | Freelancer & Developer</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">D</div>
+                <div>Portfolio<span>.</span></div>
+            </div>
+            
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>Hi, I'm <span style="color: #dbafff;">Deven</span>.<br>Freelancer & Developer</h1>
+                <p>I specialize in full-stack development, 3D modeling, animation, and UI/UX design. With expertise in 10+ programming languages and a passion for creating immersive digital experiences.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn">View My Work</a>
+                    <a href="#contact" class="btn btn-outline">Contact Me</a>
+                    <a href="#" class="btn">Resume</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="wireframe-art">
+                    <canvas id="hero-wireframe" width="400" height="350"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title scroll-reveal">About Me</h2>
+            
+            <div class="about-content">
+                <div class="about-text scroll-reveal-left">
+                    <h3>Deven Hodder | <span style="color: #dbafff;">Mr. White</span></h3>
+                    <p>Full-stack developer, 3D artist, and UI/UX designer with a passion for creating immersive digital experiences. I combine technical expertise with creative design to build compelling applications and visual content.</p>
+                    <p>Currently expanding my knowledge in SQL and database management while continuing to master existing skills in game development, web applications, and multimedia design.</p>
+                    
+                    <div class="skill-tags">
+                        <span class="skill-tag">Fast Learner</span>
+                        <span class="skill-tag">Communicative</span>
+                        <span class="skill-tag">Reliable</span>
+                        <span class="skill-tag">Time Management</span>
+                        <span class="skill-tag">Problem Solving</span>
+                        <span class="skill-tag">Attention to Detail</span>
+                        <span class="skill-tag">Adaptable</span>
+                        <span class="skill-tag">Client-Focused</span>
+                        <span class="skill-tag">Organized</span>
+                        <span class="skill-tag">Self-Motivated</span>
+                    </div>
+                </div>
+
+                <div class="about-wireframe">
+                    <canvas id="pyramid" width="300" height="300"></canvas>
+                </div>
+            </div>
+            
+            <div class="info-cards">
+                <div class="info-card scroll-reveal-scale">
+                    <h4>Professions</h4>
+                    <ul>
+                        <li>Coder & Scripter</li>
+                        <li>3D Modeler & Animator</li>
+                        <li>UI/UX Designer</li>
+                        <li>VFX & SFX Designer</li>
+                        <li>Game Developer</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card scroll-reveal-scale">
+                    <h4>What I Offer</h4>
+                    <ul>
+                        <li>Clear and friendly communication</li>
+                        <li>Fast learning and adaptability</li>
+                        <li>Strong attention to detail</li>
+                        <li>Willingness to revise and improve</li>
+                        <li>Commitment to client satisfaction</li>
+                    </ul>
+                </div>
+
+                
+                <div class="info-card scroll-reveal-scale">
+                    <h4>Tools & Software</h4>
+                    <ul>
+                        <li>VS Code, PyCharm, Roblox Studio</li>
+                        <li>Blender, Audacity</li>
+                        <li>Git, GitHub, Discord.js</li>
+                        <li>Figma, Canva, Trello</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card scroll-reveal-scale">
+                    <h4>Currently Learning</h4>
+                    <ul>
+                        <li>Game development workflows</li>
+                        <li>Improving UI/UX design skills</li>
+                        <li>3D modeling and animation</li>
+                        <li>Clean and efficient coding</li>
+                        <li>Client communication best practices</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <div class="container">
+            <h2 class="section-title scroll-reveal">My Projects</h2>
+            
+            <div class="projects-filter scroll-reveal">
+                <button class="filter-btn active" data-filter="all">All Work</button>
+                <button class="filter-btn" data-filter="featured">Featured</button>
+                <button class="filter-btn" data-filter="animation">Animations</button>
+                <button class="filter-btn" data-filter="vfx">VFX</button>
+                <button class="filter-btn" data-filter="ui/ux">UI/UX</button>
+                <button class="filter-btn" data-filter="3d model">3D Models</button>
+                <button class="filter-btn" data-filter="web app">Web Apps</button>
+                <button class="filter-btn" data-filter="game">Games</button>
+            </div>
+            
+            <!-- Projects will be dynamically generated here by JavaScript -->
+            <div class="projects-grid"></div>
+            
+            <div class="view-all-container scroll-reveal">
+                <button id="viewAllBtn" class="btn">View All Projects</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="section-title scroll-reveal">Contact Me</h2>
+            
+            <div class="contact-content">
+                <div class="contact-info scroll-reveal-left">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Email</h4>
+                            <p>drhodder1@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Phone</h4>
+                            <p>+1 (602) 615-7923</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Location</h4>
+                            <p>Available for remote work worldwide</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Social Links</h4>
+                            <div class="social-links">
+                                <a href="#" class="social-link" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                                <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="social-link" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form scroll-reveal-right">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" placeholder="your.email@example.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" placeholder="What's this about?" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" placeholder="Tell me about your project..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Deven Hodder. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
+            
+            <div class="modal-header">
+                <div>
+                    <span class="modal-category" id="modalCategory">Web App • Featured</span>
+                    <h2 class="modal-title" id="modalTitle">E-Commerce Dashboard</h2>
+                </div>
+            </div>
+            
+            <div class="modal-body">
+                <div class="modal-image" id="modalImage">
+                    <i class="fas fa-code"></i>
+                </div>
+                
+                <div class="modal-details">
+                    <div class="modal-description" id="modalDescription">
+                        A comprehensive full-stack e-commerce dashboard built with React.js and Node.js.
+                    </div>
+                    
+                    <div class="modal-features">
+                        <h4>Key Features</h4>
+                        <ul id="modalFeatures">
+                            <li>Real-time sales analytics and reporting</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="modal-tech">
+                        <h4>Technologies Used</h4>
+                        <ul id="modalTech">
+                            <li>React.js</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <div class="modal-nav">
+                    <button class="modal-nav-btn" id="modalPrevBtn">
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button class="modal-nav-btn" id="modalNextBtn">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <div class="modal-links">
+                    <a href="#" class="modal-link" id="modalLiveLink" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                    </a>
+                    <a href="#" class="modal-link modal-link-outline" id="modalGithubLink" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- Three.js Wireframes -->
+    <script>
+        // Wireframe configuration
+        const accentColor = 0xdbafff;
+
+        function createWireframe(canvasId, geometryType) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(
+                75, 
+                canvas.clientWidth / canvas.clientHeight, 
+                0.1, 
+                1000
+            );
+            
+            const renderer = new THREE.WebGLRenderer({ 
+                canvas, 
+                alpha: true, 
+                antialias: true 
+            });
+            
+            renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setClearColor(0x000000, 0);
+
+            // Create geometry based on type
+            let geometry;
+            switch(geometryType) {
+                case 'pyramid':
+                    geometry = new THREE.TetrahedronGeometry(2.5);
+                    break;
+                case 'octahedron':
+                    geometry = new THREE.OctahedronGeometry(2);
+                    break;
+                case 'torus':
+                    geometry = new THREE.TorusGeometry(2, 0.6, 16, 100);
+                    break;
+                case 'icosahedron':
+                    geometry = new THREE.IcosahedronGeometry(2);
+                    break;
+                default:
+                    geometry = new THREE.TetrahedronGeometry(2.5);
+            }
+
+            const material = new THREE.MeshBasicMaterial({ 
+                color: accentColor, 
+                wireframe: true,
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+
+            camera.position.z = 5;
+
+            // Animation
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                mesh.rotation.x += 0.003;
+                mesh.rotation.y += 0.005;
+                
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            // Handle resize
+            window.addEventListener('resize', () => {
+                if (!canvas) return;
+                const width = canvas.clientWidth;
+                const height = canvas.clientHeight;
+                renderer.setSize(width, height);
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+            });
+        }
+
+        // Initialize wireframes when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => {
+                createWireframe('hero-wireframe', 'torus');
+                createWireframe('pyramid', 'pyramid');
+            });
+        } else {
+            createWireframe('hero-wireframe', 'torus');
+            createWireframe('pyramid', 'pyramid');
+        }
+    </script>
+    
+    <!-- Main JavaScript -->
+    <script src="main.js"></script>
+</body>
+</html>
