@@ -1,12 +1,12 @@
 /* ===================================
-   PROJECT DATA - Edit your projects here
-   =================================== */
+PROJECT DATA - Edit your projects here
+=================================== */
 const projects = [
     {
         id: 1,
         title: "Kaioken Animation",
         category: "Animation • Featured",
-        gifUrl: "https://i.imgur.com/uZVZq0R.mp4",
+        gifUrl: "https://imgur.com/uZVZq0R",
         description: "An animation based on the Kaioken technique from Dragon Ball Z.",
         shortDescription: "An animation based on the Kaioken technique from Dragon Ball Z.",
         features: [
@@ -26,8 +26,8 @@ const projects = [
 ];
 
 /* ===================================
-   DOM ELEMENTS CACHE
-   =================================== */
+DOM ELEMENTS CACHE
+=================================== */
 const DOM = {
     // Navigation
     navLinks: document.querySelectorAll('nav a'),
@@ -59,33 +59,58 @@ const DOM = {
 };
 
 /* ===================================
-   STATE MANAGEMENT
-   =================================== */
+STATE MANAGEMENT
+=================================== */
 let currentProjectIndex = 0;
 
 /* ===================================
-   RENDER PROJECTS FROM DATA
-   =================================== */
+RENDER PROJECTS FROM DATA
+=================================== */
 function renderProjects() {
     if (!DOM.projectsGrid) return;
 
-    DOM.projectsGrid.innerHTML = projects.map(project => `
-        <div class="project-card scroll-reveal-scale" data-project="${project.id}">
-            <div class="project-img">
-                <img 
-                    src="${project.gifUrl}" 
-                    alt="${project.title} preview"
-                    loading="lazy"
-                />
+    DOM.projectsGrid.innerHTML = projects.map(project => {
+        let mediaUrl = project.gifUrl;
+        
+        // Convert Imgur page links to direct media links
+        if (mediaUrl.includes('imgur.com/') && !mediaUrl.includes('i.imgur.com')) {
+            const imgurId = mediaUrl.split('/').pop().split('.')[0];
+            mediaUrl = `https://i.imgur.com/${imgurId}.mp4`;
+        }
+        
+        const isVideo = mediaUrl.toLowerCase().endsWith('.mp4') || 
+        mediaUrl.toLowerCase().includes('.mp4?');
+        
+        return `
+            <div class="project-card scroll-reveal-scale" data-project="${project.id}">
+                <div class="project-img">
+                    ${isVideo ? `
+                        <video 
+                            autoplay 
+                            loop 
+                            muted 
+                            playsinline
+                            preload="auto"
+                        >
+                            <source src="${mediaUrl}" type="video/mp4">
+                        </video>
+                    ` : `
+                        <img 
+                            src="${mediaUrl}" 
+                            alt="${project.title} preview"
+                            loading="lazy"
+                        />
+                    `}
+                </div>
+                <div class="project-content">
+                    <span class="project-category">${project.category}</span>
+                    <h3>${project.title}</h3>
+                    <p>${project.shortDescription}</p>
+                    <button class="btn btn-outline view-project-btn">View Project</button>
+                </div>
             </div>
-            <div class="project-content">
-                <span class="project-category">${project.category}</span>
-                <h3>${project.title}</h3>
-                <p>${project.shortDescription}</p>
-                <button class="btn btn-outline view-project-btn">View Project</button>
-            </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 
     DOM.projectCards = document.querySelectorAll('.project-card');
     DOM.viewProjectBtns = document.querySelectorAll('.view-project-btn');
@@ -94,8 +119,8 @@ function renderProjects() {
 }
 
 /* ===================================
-   PROJECT CLICK HANDLERS
-   =================================== */
+PROJECT CLICK HANDLERS
+=================================== */
 function initProjectClickHandlers() {
     // Open modal when clicking project cards
     DOM.projectCards.forEach(card => {
@@ -166,8 +191,8 @@ function filterProjects(filter) {
 }
 
 /* ===================================
-   VIEW ALL PROJECTS
-   =================================== */
+VIEW ALL PROJECTS
+=================================== */
 function initViewAllButton() {
     DOM.viewAllBtn?.addEventListener('click', () => {
         // Reset to "All Work" filter
@@ -183,8 +208,8 @@ function initViewAllButton() {
 }
 
 /* ===================================
-   PROJECT MODAL
-   =================================== */
+PROJECT MODAL
+=================================== */
 function initProjectModal() {
     // Close modal
     DOM.modalClose?.addEventListener('click', closeModal);
@@ -277,8 +302,8 @@ function handleModalKeyboard(e) {
 }
 
 /* ===================================
-   CONTACT FORM
-   =================================== */
+CONTACT FORM
+=================================== */
 function initContactForm() {
     DOM.contactForm?.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -302,8 +327,8 @@ function initContactForm() {
 }
 
 /* ===================================
-   SMOOTH SCROLLING
-   =================================== */
+SMOOTH SCROLLING
+=================================== */
 function initSmoothScrolling() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -330,8 +355,8 @@ function initSmoothScrolling() {
 }
 
 /* ===================================
-   SCROLL REVEAL ANIMATIONS
-   =================================== */
+SCROLL REVEAL ANIMATIONS
+=================================== */
 function initScrollReveal() {
     const revealElements = document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right, .scroll-reveal-scale');
     
@@ -356,8 +381,8 @@ function initScrollReveal() {
 }
 
 /* ===================================
-   ACTIVE NAVIGATION
-   =================================== */
+ACTIVE NAVIGATION
+=================================== */
 function updateActiveNavLink() {
     const scrollPos = window.scrollY + 100;
     
@@ -379,8 +404,8 @@ function updateActiveNavLink() {
 }
 
 /* ===================================
-   SCROLL OPTIMIZATION
-   =================================== */
+SCROLL OPTIMIZATION
+=================================== */
 let scrollTimeout;
 function handleScroll() {
     if (scrollTimeout) {
@@ -393,8 +418,8 @@ function handleScroll() {
 }
 
 /* ===================================
-   INITIALIZATION
-   =================================== */
+INITIALIZATION
+=================================== */
 function init() {
     // Render projects first
     renderProjects();
