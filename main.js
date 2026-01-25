@@ -68,7 +68,6 @@ RENDER PROJECTS FROM DATA
 =================================== */
 function renderProjects() {
     if (!DOM.projectsGrid) return;
-
     DOM.projectsGrid.innerHTML = projects.map(project => {
         let mediaUrl = project.gifUrl;
         
@@ -111,11 +110,44 @@ function renderProjects() {
             </div>
         `;
     }).join('');
-
     DOM.projectCards = document.querySelectorAll('.project-card');
     DOM.viewProjectBtns = document.querySelectorAll('.view-project-btn');
-
     initProjectClickHandlers();
+}
+
+// Add this new function to render media in the modal
+function renderModalMedia(project) {
+    const modalImage = document.getElementById('modalImage');
+    if (!modalImage || !project) return;
+    
+    let mediaUrl = project.gifUrl;
+    
+    // Convert Imgur page links to direct media links
+    if (mediaUrl.includes('imgur.com/') && !mediaUrl.includes('i.imgur.com')) {
+        const imgurId = mediaUrl.split('/').pop().split('.')[0];
+        mediaUrl = `https://i.imgur.com/${imgurId}.mp4`;
+    }
+    
+    const isVideo = mediaUrl.toLowerCase().endsWith('.mp4') || 
+                    mediaUrl.toLowerCase().includes('.mp4?');
+    
+    // Replace the modal content with the appropriate media
+    modalImage.innerHTML = isVideo ? `
+        <video 
+            autoplay 
+            loop 
+            muted 
+            playsinline
+            preload="auto"
+        >
+            <source src="${mediaUrl}" type="video/mp4">
+        </video>
+    ` : `
+        <img 
+            src="${mediaUrl}" 
+            alt="${project.title} preview"
+        />
+    `;
 }
 
 /* ===================================
@@ -232,7 +264,36 @@ function openModal(index) {
     // Update modal content
     DOM.modalCategory.textContent = project.category;
     DOM.modalTitle.textContent = project.title;
-    DOM.modalImage.innerHTML = `<i class="fas ${project.icon}"></i>`;
+    
+    // Render media (video or image) instead of icon
+    let mediaUrl = project.gifUrl;
+    
+    // Convert Imgur page links to direct media links
+    if (mediaUrl.includes('imgur.com/') && !mediaUrl.includes('i.imgur.com')) {
+        const imgurId = mediaUrl.split('/').pop().split('.')[0];
+        mediaUrl = `https://i.imgur.com/${imgurId}.mp4`;
+    }
+    
+    const isVideo = mediaUrl.toLowerCase().endsWith('.mp4') || 
+                    mediaUrl.toLowerCase().includes('.mp4?');
+    
+    DOM.modalImage.innerHTML = isVideo ? `
+        <video 
+            autoplay 
+            loop 
+            muted 
+            playsinline
+            preload="auto"
+        >
+            <source src="${mediaUrl}" type="video/mp4">
+        </video>
+    ` : `
+        <img 
+            src="${mediaUrl}" 
+            alt="${project.title} preview"
+        />
+    `;
+    
     DOM.modalDescription.textContent = project.description;
     
     // Update features
