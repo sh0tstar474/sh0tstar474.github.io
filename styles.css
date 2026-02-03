@@ -117,7 +117,7 @@ body {
     text-rendering: optimizeLegibility;
 }
 
-/* Animated Background Glow - Optimized with will-change */
+/* Animated Background Glow - Now always visible and animating */
 body::before {
     content: "";
     position: fixed;
@@ -198,30 +198,35 @@ body::before {
 }
 
 /* ===================================
-   SCROLL REVEAL ANIMATIONS
+   SCROLL REVEAL ANIMATIONS - FIXED
    =================================== */
 .scroll-reveal,
 .scroll-reveal-left,
 .scroll-reveal-right,
 .scroll-reveal-scale {
-    opacity: 0;
+    /* Elements start visible and don't require JS to be seen */
     transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
                 transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.scroll-reveal {
+/* When JS adds animation classes, elements will animate in from these states */
+.scroll-reveal:not(.revealed) {
+    opacity: 0;
     transform: translateY(50px);
 }
 
-.scroll-reveal-left {
+.scroll-reveal-left:not(.revealed) {
+    opacity: 0;
     transform: translateX(-50px);
 }
 
-.scroll-reveal-right {
+.scroll-reveal-right:not(.revealed) {
+    opacity: 0;
     transform: translateX(50px);
 }
 
-.scroll-reveal-scale {
+.scroll-reveal-scale:not(.revealed) {
+    opacity: 0;
     transform: scale(0.9);
 }
 
@@ -513,6 +518,8 @@ header.scrolled {
     color: var(--text-secondary);
     margin-bottom: 8px;
     animation: fadeInUp 0.6s ease-out;
+    opacity: 0;
+    animation-fill-mode: forwards;
 }
 
 .hero-name {
@@ -525,6 +532,7 @@ header.scrolled {
     background-clip: text;
     animation: fadeInUp 0.6s ease-out 0.2s forwards;
     line-height: 1.1;
+    opacity: 0;
 }
 
 .hero-title {
@@ -533,6 +541,7 @@ header.scrolled {
     font-weight: var(--font-weight-bold);
     margin-top: 8px;
     animation: fadeInUp 0.6s ease-out 0.4s forwards;
+    opacity: 0;
 }
 
 @keyframes fadeInUp {
@@ -553,6 +562,7 @@ header.scrolled {
     max-width: 600px;
     line-height: 1.7;
     animation: fadeInUp 0.6s ease-out 0.6s forwards;
+    opacity: 0;
 }
 
 .hero-buttons {
@@ -560,6 +570,7 @@ header.scrolled {
     gap: 16px;
     flex-wrap: wrap;
     animation: fadeInUp 0.6s ease-out 0.8s forwards;
+    opacity: 0;
 }
 
 .wireframe-art {
@@ -573,6 +584,7 @@ header.scrolled {
     border: 1px solid var(--border-color);
     overflow: hidden;
     animation: fadeIn 1s ease-out 1s forwards;
+    opacity: 0;
 }
 
 @keyframes fadeIn {
