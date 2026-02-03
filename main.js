@@ -1,5 +1,223 @@
 /* ===================================
-   PROJECT DATA - Edit your projects here
+   PORTFOLIO MAIN.JS - COMBINED
+   All functionality in one file
+   =================================== */
+
+/* ===================================
+   PORTFOLIO CONFIGURATION
+   =================================== */
+const PORTFOLIO_CONFIG = {
+    // Personal Information
+    personal: {
+        name: "Deven Hodder",
+        nickname: "Mr. White",
+        title: "Freelancer & Developer",
+        tagline: "Full-stack developer, 3D artist, and UI/UX designer",
+        description: "I specialize in full-stack development, 3D modeling, animation, and UI/UX design. With expertise in 10+ programming languages and a passion for creating immersive digital experiences.",
+        location: "Available for remote work worldwide",
+        currentFocus: "Currently expanding my knowledge in SQL and database management while continuing to master existing skills in game development, web applications, and multimedia design."
+    },
+
+    // Contact Information
+    contact: {
+        email: "drhodder1@gmail.com",
+        phone: "+1 (602) 615-7923",
+        phoneLink: "tel:+16026157923",
+        
+        // Social Media - Update these with your actual profiles
+        social: {
+            github: "https://github.com/yourusername",
+            linkedin: "https://linkedin.com/in/yourusername",
+            twitter: "https://twitter.com/yourusername",
+            instagram: "https://instagram.com/yourusername",
+            tiktok: "https://tiktok.com/@yourusername"
+        },
+        
+        // Resume
+        resumeUrl: "resume.pdf"
+    },
+
+    // SEO & Meta Information
+    seo: {
+        siteUrl: "https://devenhodder.com",
+        siteName: "Deven Hodder Portfolio",
+        description: "Full-stack developer, 3D artist, and UI/UX designer specializing in game development, web applications, and immersive digital experiences. Expert in 10+ programming languages.",
+        keywords: [
+            "Full-stack developer",
+            "3D artist",
+            "UI/UX designer",
+            "game development",
+            "web development",
+            "Blender",
+            "JavaScript",
+            "Python",
+            "freelance developer"
+        ],
+        author: "Deven Hodder",
+        ogImage: "https://devenhodder.com/og-image.jpg",
+        twitterImage: "https://devenhodder.com/twitter-image.jpg",
+        twitterHandle: "@yourusername"
+    },
+
+    // Skills & Expertise
+    skills: {
+        soft: [
+            "Fast Learner",
+            "Communicative",
+            "Reliable",
+            "Time Management",
+            "Problem Solving",
+            "Attention to Detail",
+            "Adaptable",
+            "Client-Focused",
+            "Organized",
+            "Self-Motivated"
+        ],
+        
+        professions: [
+            "Coder & Scripter",
+            "3D Modeler & Animator",
+            "UI/UX Designer",
+            "VFX & SFX Designer",
+            "Game Developer"
+        ],
+        
+        offerings: [
+            "Clear and friendly communication",
+            "Fast learning and adaptability",
+            "Strong attention to detail",
+            "Willingness to revise and improve",
+            "Commitment to client satisfaction"
+        ],
+        
+        tools: [
+            "VS Code, PyCharm, Roblox Studio",
+            "Blender, Audacity",
+            "Git, GitHub, Discord.js",
+            "Figma, Canva, Trello"
+        ],
+        
+        learning: [
+            "Game development workflows",
+            "Improving UI/UX design skills",
+            "3D modeling and animation",
+            "Clean and efficient coding",
+            "Client communication best practices"
+        ]
+    },
+
+    // Theme Customization
+    theme: {
+        colors: {
+            // Main Colors
+            primary: "#0a0a0a",
+            secondary: "#1a1a1a",
+            accent: "#dbafff",
+            accentDark: "#b88ee6",
+            accentLight: "#f0dcff",
+            
+            // Text Colors
+            textPrimary: "#f0f0f0",
+            textSecondary: "#aaaaaa",
+            textMuted: "#6b6b6b",
+            
+            // UI Colors
+            cardBackground: "#151515",
+            borderColor: "rgba(219, 175, 255, 0.15)",
+            
+            // Status Colors
+            success: "#4ade80",
+            error: "#f87171",
+            warning: "#fbbf24"
+        },
+        
+        fonts: {
+            display: "'Manrope', sans-serif",
+            mono: "'Space Mono', monospace"
+        },
+        
+        // Animation speeds (in ms)
+        animations: {
+            fast: 150,
+            normal: 300,
+            slow: 500
+        }
+    },
+
+    // Feature Toggles
+    features: {
+        // Enable/disable features
+        enableAnimations: true,
+        enableWireframes: true,
+        enableParticles: false, // For future enhancement
+        enableDarkModeToggle: false, // For future enhancement
+        enableBlog: false, // For future enhancement
+        
+        // Analytics
+        googleAnalyticsId: "", // Add your GA4 ID: G-XXXXXXXXXX
+        
+        // Contact Form
+        contactForm: {
+            enabled: true,
+            endpoint: "/api/contact", // Update with your backend endpoint
+            maxMessageLength: 2000,
+            enableRecaptcha: false, // Set to true and add key
+            recaptchaKey: ""
+        }
+    },
+
+    // Projects Configuration
+    projects: {
+        // How many projects to show initially
+        initialDisplay: 6,
+        
+        // Categories for filtering
+        categories: [
+            "All Work",
+            "Featured",
+            "Animations",
+            "VFX",
+            "UI/UX",
+            "3D Models",
+            "Web Apps",
+            "Games"
+        ],
+        
+        // Default placeholder for projects without images
+        defaultPlaceholder: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23151515' width='400' height='300'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23dbafff' font-size='48'%3E?%3C/text%3E%3C/svg%3E"
+    },
+
+    // Performance Settings
+    performance: {
+        // Lazy load images/videos when they're within X pixels of viewport
+        lazyLoadOffset: 50,
+        
+        // Debounce/throttle timings
+        scrollThrottle: 100,
+        resizeDebounce: 250,
+        
+        // Maximum pixel ratio for renders
+        maxPixelRatio: 2,
+        
+        // Enable/disable animations on mobile
+        animationsOnMobile: true,
+        
+        // Reduce motion for users who prefer it
+        respectReducedMotion: true
+    },
+
+    // Legal Pages (create these files if needed)
+    legal: {
+        privacyPolicyUrl: "#privacy",
+        termsOfServiceUrl: "#terms"
+    }
+};
+
+// Freeze config to prevent accidental modifications
+Object.freeze(PORTFOLIO_CONFIG);
+
+/* ===================================
+   PROJECT DATA
    =================================== */
 const projects = [
     {
@@ -846,6 +1064,229 @@ function initPerformanceOptimizations() {
 }
 
 /* ===================================
+   THREE.JS WIREFRAME ANIMATIONS
+   =================================== */
+(function initWireframeAnimations() {
+    'use strict';
+
+    // Configuration
+    const WIREFRAME_CONFIG = {
+        accentColor: 0xdbafff,
+        animationSpeed: {
+            slow: 0.003,
+            medium: 0.005,
+            fast: 0.008
+        },
+        pixelRatio: Math.min(window.devicePixelRatio, 2),
+        opacity: 0.8
+    };
+
+    /**
+     * Create a wireframe animation
+     * @param {string} canvasId - ID of the canvas element
+     * @param {string} geometryType - Type of geometry to create
+     */
+    function createWireframe(canvasId, geometryType) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) {
+            Utils.logError('createWireframe', `Canvas with id "${canvasId}" not found`);
+            return;
+        }
+
+        // Ensure Three.js is loaded
+        if (typeof THREE === 'undefined') {
+            Utils.logError('createWireframe', 'THREE.js is not loaded');
+            return;
+        }
+
+        try {
+            // Scene setup
+            const scene = new THREE.Scene();
+            
+            // Camera setup
+            const camera = new THREE.PerspectiveCamera(
+                75, 
+                canvas.clientWidth / canvas.clientHeight, 
+                0.1, 
+                1000
+            );
+            
+            // Renderer setup
+            const renderer = new THREE.WebGLRenderer({ 
+                canvas, 
+                alpha: true, 
+                antialias: true 
+            });
+            
+            renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+            renderer.setPixelRatio(WIREFRAME_CONFIG.pixelRatio);
+            renderer.setClearColor(0x000000, 0);
+
+            // Create geometry based on type
+            let geometry;
+            switch(geometryType) {
+                case 'pyramid':
+                    geometry = new THREE.TetrahedronGeometry(2.5);
+                    break;
+                case 'octahedron':
+                    geometry = new THREE.OctahedronGeometry(2);
+                    break;
+                case 'torus':
+                    geometry = new THREE.TorusGeometry(2, 0.6, 16, 100);
+                    break;
+                case 'icosahedron':
+                    geometry = new THREE.IcosahedronGeometry(2);
+                    break;
+                case 'dodecahedron':
+                    geometry = new THREE.DodecahedronGeometry(2);
+                    break;
+                case 'sphere':
+                    geometry = new THREE.SphereGeometry(2, 32, 32);
+                    break;
+                default:
+                    geometry = new THREE.TetrahedronGeometry(2.5);
+                    Utils.logError('createWireframe', `Unknown geometry type "${geometryType}", using pyramid`);
+            }
+
+            // Material setup
+            const material = new THREE.MeshBasicMaterial({ 
+                color: WIREFRAME_CONFIG.accentColor, 
+                wireframe: true,
+                transparent: true,
+                opacity: WIREFRAME_CONFIG.opacity
+            });
+            
+            // Create mesh
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+
+            // Position camera
+            camera.position.z = 5;
+
+            // Animation variables
+            let animationFrameId = null;
+            let isVisible = true;
+
+            // Animation loop
+            function animate() {
+                if (!isVisible) return;
+
+                animationFrameId = requestAnimationFrame(animate);
+                
+                // Rotate mesh
+                mesh.rotation.x += WIREFRAME_CONFIG.animationSpeed.slow;
+                mesh.rotation.y += WIREFRAME_CONFIG.animationSpeed.medium;
+                
+                // Render scene
+                renderer.render(scene, camera);
+            }
+
+            // Start animation
+            animate();
+
+            // Handle resize with debouncing
+            let resizeTimeout;
+            function handleResize() {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    if (!canvas) return;
+                    
+                    const width = canvas.clientWidth;
+                    const height = canvas.clientHeight;
+                    
+                    renderer.setSize(width, height);
+                    camera.aspect = width / height;
+                    camera.updateProjectionMatrix();
+                }, 250);
+            }
+
+            window.addEventListener('resize', handleResize);
+
+            // Intersection Observer for performance
+            // Pause animation when not visible
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        isVisible = entry.isIntersecting;
+                        if (isVisible) {
+                            animate();
+                        } else {
+                            if (animationFrameId) {
+                                cancelAnimationFrame(animationFrameId);
+                                animationFrameId = null;
+                            }
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                observer.observe(canvas);
+            }
+
+            // Cleanup function
+            return function cleanup() {
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                }
+                window.removeEventListener('resize', handleResize);
+                geometry.dispose();
+                material.dispose();
+                renderer.dispose();
+            };
+
+        } catch (error) {
+            Utils.logError('createWireframe', error);
+            return null;
+        }
+    }
+
+    /**
+     * Initialize all wireframes on the page
+     */
+    function initWireframes() {
+        // Wait for Three.js to be loaded
+        if (typeof THREE === 'undefined') {
+            console.warn('THREE.js not loaded yet, waiting...');
+            setTimeout(initWireframes, 100);
+            return;
+        }
+
+        try {
+            // Create wireframes with different geometries
+            const wireframes = [
+                { id: 'hero-wireframe', type: 'torus' },
+                { id: 'pyramid', type: 'pyramid' }
+            ];
+
+            wireframes.forEach(({ id, type }) => {
+                const cleanup = createWireframe(id, type);
+                if (cleanup) {
+                    // Store cleanup function for potential use
+                    window[`cleanup_${id}`] = cleanup;
+                }
+            });
+
+            console.log('✅ Wireframe animations initialized');
+        } catch (error) {
+            Utils.logError('initWireframes', error);
+        }
+    }
+
+    // Expose wireframe functions
+    window.WireframeAnimations = {
+        create: createWireframe,
+        init: initWireframes
+    };
+
+    // Auto-initialize wireframes when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initWireframes);
+    } else {
+        initWireframes();
+    }
+
+})();
+
+/* ===================================
    ERROR BOUNDARY
    =================================== */
 function setupGlobalErrorHandler() {
@@ -910,5 +1351,10 @@ if (document.readyState === 'loading') {
 
 // Export for testing (optional)
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { Utils, State, projects };
+    module.exports = { 
+        PORTFOLIO_CONFIG, 
+        projects, 
+        Utils, 
+        State 
+    };
 }
