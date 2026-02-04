@@ -117,7 +117,7 @@ body {
     text-rendering: optimizeLegibility;
 }
 
-/* Animated Background Glow - Now always visible and animating */
+/* Animated Background Glow - Always visible and animating */
 body::before {
     content: "";
     position: fixed;
@@ -198,44 +198,48 @@ body::before {
 }
 
 /* ===================================
-   SCROLL REVEAL ANIMATIONS - FIXED
+   SCROLL REVEAL ANIMATIONS - FULLY FIXED
    =================================== */
+/* Elements are ALWAYS visible by default - no hiding */
 .scroll-reveal,
 .scroll-reveal-left,
 .scroll-reveal-right,
 .scroll-reveal-scale {
-    /* Elements start visible and don't require JS to be seen */
+    opacity: 1;
+    transform: none;
     transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
                 transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* When JS adds animation classes, elements will animate in from these states */
-.scroll-reveal:not(.revealed) {
+/* Only hide when JavaScript is loaded and ready */
+.js-loaded .scroll-reveal:not(.revealed) {
     opacity: 0;
     transform: translateY(50px);
 }
 
-.scroll-reveal-left:not(.revealed) {
+.js-loaded .scroll-reveal-left:not(.revealed) {
     opacity: 0;
     transform: translateX(-50px);
 }
 
-.scroll-reveal-right:not(.revealed) {
+.js-loaded .scroll-reveal-right:not(.revealed) {
     opacity: 0;
     transform: translateX(50px);
 }
 
-.scroll-reveal-scale:not(.revealed) {
+.js-loaded .scroll-reveal-scale:not(.revealed) {
     opacity: 0;
     transform: scale(0.9);
 }
 
+/* Revealed state */
+.revealed,
 .scroll-reveal.revealed,
 .scroll-reveal-left.revealed,
 .scroll-reveal-right.revealed,
 .scroll-reveal-scale.revealed {
-    opacity: 1;
-    transform: translate(0) scale(1);
+    opacity: 1 !important;
+    transform: translate(0) scale(1) !important;
 }
 
 /* ===================================
@@ -370,6 +374,10 @@ header.scrolled {
     background: var(--text-color);
     transition: var(--transition);
     border-radius: var(--radius-full);
+}
+
+.mobile-menu-btn:hover .hamburger-line {
+    background: var(--accent-color);
 }
 
 .mobile-menu-btn[aria-expanded="true"] .hamburger-line:nth-child(1) {
@@ -635,6 +643,14 @@ header.scrolled {
     height: 4px;
     background: linear-gradient(90deg, var(--accent-color) 0%, transparent 100%);
     border-radius: var(--radius-full);
+    animation: expandWidth 0.8s ease-out 0.3s forwards;
+    width: 0;
+}
+
+@keyframes expandWidth {
+    to {
+        width: 80px;
+    }
 }
 
 /* ===================================
@@ -765,6 +781,7 @@ header.scrolled {
     padding-left: 24px;
     color: var(--text-secondary);
     line-height: 1.6;
+    transition: var(--transition-fast);
 }
 
 .info-card li::before {
@@ -773,6 +790,16 @@ header.scrolled {
     left: 0;
     color: var(--accent-color);
     font-weight: var(--font-weight-bold);
+    transition: var(--transition-fast);
+}
+
+.info-card li:hover {
+    color: var(--text-color);
+    padding-left: 28px;
+}
+
+.info-card li:hover::before {
+    color: var(--accent-light);
 }
 
 /* ===================================
@@ -895,6 +922,11 @@ header.scrolled {
     margin-bottom: 16px;
     color: var(--text-color);
     font-weight: var(--font-weight-bold);
+    transition: var(--transition-fast);
+}
+
+.project-card:hover .project-content h3 {
+    color: var(--accent-color);
 }
 
 .project-content p {
@@ -1072,6 +1104,13 @@ header.scrolled {
 
 .form-control.error {
     border-color: var(--error-color);
+    animation: shake 0.4s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
 }
 
 .error-message {
@@ -1083,6 +1122,7 @@ header.scrolled {
 
 .form-control.error ~ .error-message {
     display: block;
+    animation: slideDown 0.3s ease-out;
 }
 
 textarea.form-control {
@@ -1111,6 +1151,7 @@ textarea.form-control {
     text-align: center;
     font-weight: var(--font-weight-medium);
     display: none;
+    animation: slideDown 0.3s ease-out;
 }
 
 .form-status.success {
