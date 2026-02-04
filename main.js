@@ -1003,7 +1003,10 @@ function initScrollReveal() {
     };
     
     // Initial check
-    revealOnScroll();
+    requestAnimationFrame(() => {
+        revealOnScroll();
+    });
+
     
     // Throttled scroll listener for performance
     const throttledReveal = Utils.throttle(revealOnScroll, 100);
@@ -1315,6 +1318,7 @@ function init() {
 
         // Render projects first
         renderProjects();
+        initScrollReveal();
         
         // Initialize all features
         initMobileMenu();
