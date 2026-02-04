@@ -1307,6 +1307,9 @@ function setupGlobalErrorHandler() {
    =================================== */
 function init() {
     try {
+        // Add js-loaded class to enable scroll animations
+        document.documentElement.classList.add('js-loaded');
+        
         // Setup error handling
         setupGlobalErrorHandler();
 
