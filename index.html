@@ -335,12 +335,11 @@
         ];
 
         const SOCIALS = [
-            { href: "https://github.com", icon: "github", delay: 100 },
-            { href: "https://linkedin.com", icon: "linkedin", delay: 200 },
-            { href: "https://twitter.com", icon: "twitter", delay: 300 },
-            { href: "https://instagram.com", icon: "instagram", delay: 400 },
-            { href: "https://discord.com", icon: "message-circle", delay: 500 }, 
-            { href: "https://tiktok.com", icon: "video", delay: 600 }
+            { href: "https://github.com/sh0tstar474", icon: "github", delay: 100 },
+            // { href: "https://twitter.com", icon: "twitter", delay: 300 },
+            // { href: "https://instagram.com", icon: "instagram", delay: 400 },
+            { href: "https://discord.com/users/756216295179157586", icon: "discord", delay: 500 }, 
+            { href: "https://www.tiktok.com/@sh0tstar47", icon: "tiktok", delay: 600 }
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -433,26 +432,26 @@
         let lastHoverTarget = null;
         let lastHoverTime = 0;
 
-        document.addEventListener('mouseover', (e) => {
-            const target = e.target.closest('.sound-hover, a, button');
-            if (target) {
-               const now = Date.now();
+        // document.addEventListener('mouseover', (e) => {
+        //     const target = e.target.closest('.sound-hover, a, button');
+        //     if (target) {
+        //        const now = Date.now();
                
-               if (target !== lastHoverTarget && now - lastHoverTime > 50) {
-                   playSound('hover');
-                   lastHoverTarget = target;
-                   lastHoverTime = now;
-               }
-            } else {
-                lastHoverTarget = null;
-            }
-        });
+        //        if (target !== lastHoverTarget && now - lastHoverTime > 50) {
+        //            playSound('hover');
+        //            lastHoverTarget = target;
+        //            lastHoverTime = now;
+        //        }
+        //     } else {
+        //         lastHoverTarget = null;
+        //     }
+        // });
 
-        document.addEventListener('mousedown', (e) => {
-             if (e.target.closest('.sound-click') || e.target.closest('a') || e.target.closest('button')) {
-                playSound('click');
-            }
-        });
+        // document.addEventListener('mousedown', (e) => {
+        //      if (e.target.closest('.sound-click') || e.target.closest('a') || e.target.closest('button')) {
+        //         playSound('click');
+        //     }
+        // });
 
         window.copyToClipboard = (text, type) => {
             navigator.clipboard.writeText(text).then(() => {
@@ -500,7 +499,7 @@
 
         const CATEGORIES = [
             { id: 'all', label: 'ALL', icon: 'layers' },
-            { id: 'Game Dev', label: 'GAME', icon: 'gamepad-2' },
+            { id: 'Game Dev', label: 'FEATURED', icon: 'gamepad-2' },
             { id: 'Animation', label: 'ANIM', icon: 'film' },
             { id: 'VFX', label: 'VFX', icon: 'wand-2' },
             { id: '3D Model', label: '3D', icon: 'box' },
