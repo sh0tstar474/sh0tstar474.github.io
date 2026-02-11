@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deven Hodder | Portfolio</title>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M5 16h14v-6c0-3.87-3.13-7-7-7s-7 3.13-7 7v6zm-2 2h18v2H3v-2z'/%3E%3C/svg%3E">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -656,17 +658,27 @@
 
         function initSocials() {
             const container = document.getElementById('social-links-container');
-            container.innerHTML = SOCIALS.map(s => `
+            container.innerHTML = SOCIALS.map(s => {
+                let iconHtml;
+                if (s.icon === 'discord') {
+                    iconHtml = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M7.25 21V9a5.25 5.25 0 1 1 10.5 0v1.5"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M7.5 21h9a2.5 2.5 0 0 0 2.5-2.5v-9a7.5 7.5 0 0 0-15 0v9a2.5 2.5 0 0 0 2.5 2.5Z"/></svg>`;
+                } else if (s.icon === 'tiktok') {
+                    iconHtml = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>`;
+                } else {
+                    iconHtml = `<i data-lucide="${s.icon}" class="w-5 h-5"></i>`;
+                }
+
+                return `
                 <div class="relative inline-block" onmousemove="handleMagnetic(event, this)" onmouseleave="resetMagnetic(this)">
                     <a href="${s.href}" target="_blank" class="magnetic-child group relative flex items-center justify-center p-3 border border-neutral-800 bg-black overflow-hidden hover:border-white hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"
                     style="animation-delay: ${s.delay}ms; transition: transform 0.1s ease-out;">
                         <div class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
                         <div class="relative z-10 text-neutral-400 group-hover:text-black transition-colors duration-300">
-                            <i data-lucide="${s.icon}" class="w-5 h-5"></i>
+                            ${iconHtml}
                         </div>
                     </a>
-                </div>
-            `).join('') + `
+                </div>`;
+            }).join('') + `
             <div class="relative inline-block" onmousemove="handleMagnetic(event, this)" onmouseleave="resetMagnetic(this)">
                 <button class="sound-click magnetic-child p-3 bg-white text-black hover:bg-neutral-200 hover:shadow-[0_0_20px_white] transition-all font-bold group relative overflow-hidden" style="transition: transform 0.1s ease-out;">
                     <i data-lucide="download" class="w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
