@@ -3,442 +3,933 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Deven Hodder | Portfolio</title>
     
-    <!-- Security Headers -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' https: data:; media-src 'self' https:; connect-src 'self';">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
-    <meta name="referrer" content="strict-origin-when-cross-origin">
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Deven Hodder - Full-stack developer, 3D artist, and UI/UX designer specializing in game development, web applications, and immersive digital experiences. Expert in 10+ programming languages.">
-    <meta name="keywords" content="Full-stack developer, 3D artist, UI/UX designer, game development, web development, Blender, JavaScript, Python, freelance developer">
-    <meta name="author" content="Deven Hodder">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://devenhodder.com">
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Deven Hodder | Freelancer & Developer">
-    <meta property="og:description" content="Full-stack developer, 3D artist, and UI/UX designer creating immersive digital experiences">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://devenhodder.com">
-    <meta property="og:image" content="https://devenhodder.com/og-image.jpg">
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Deven Hodder | Freelancer & Developer">
-    <meta name="twitter:description" content="Full-stack developer, 3D artist, and UI/UX designer">
-    <meta name="twitter:image" content="https://devenhodder.com/twitter-image.jpg">
-    
-    <title>Deven Hodder | Freelancer & Developer Portfolio</title>
-    
-    <!-- Preconnect to external resources for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    
-    <!-- Fonts - Using distinctive typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- Icons with integrity check -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
-    
-    <!-- Preload critical resources -->
-    <link rel="preload" href="styles.css" as="style">
-    <link rel="preload" href="main.js" as="script">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="styles.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💼</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+    <style>
+        *, *::before, *::after {
+            cursor: none !important;
+        }
+
+        html.lenis {
+            height: auto;
+        }
+        
+        .lenis.lenis-smooth {
+            scroll-behavior: auto;
+        }
+        
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+        
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+        
+        .lenis.lenis-scrolling iframe {
+            pointer-events: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #000; 
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #333; 
+            border-radius: 3px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
+
+        .perspective-1000 { perspective: 1000px; }
+        .preserve-3d { transform-style: preserve-3d; }
+        .backface-hidden { backface-visibility: hidden; }
+        
+        .clip-path-slant { 
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); 
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        .animate-fade-in-up { 
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+        }
+
+        #cursor-dot, #cursor-ring {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            border-radius: 50%;
+        }
+        #cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: white;
+        }
+        #cursor-ring {
+            width: 32px;
+            height: 32px;
+            border: 1px solid white;
+            transition: width 0.15s ease-out, height 0.15s ease-out, background-color 0.15s ease-out, opacity 0.15s ease-out;
+            opacity: 0.2;
+        }
+        #cursor-ring.active {
+            width: 48px;
+            height: 48px;
+            background-color: rgba(255, 255, 255, 0.2);
+            opacity: 0.5;
+        }
+
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: white;
+            color: black;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-weight: bold;
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 0 20px rgba(255,255,255,0.3);
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .glitch-text {
+            position: relative;
+        }
+    </style>
 </head>
-<body>
-    <!-- Skip to main content for accessibility -->
-    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+<body class="bg-black text-neutral-200 font-sans selection:bg-white selection:text-black relative overflow-x-hidden min-h-screen">
+
+    <div id="cursor-dot"></div>
+    <div id="cursor-ring"></div>
     
-    <!-- Header & Navigation -->
-    <header role="banner">
-        <div class="container header-container">
-            <a href="#home" class="logo" aria-label="Deven Hodder Portfolio Home">
-                <div class="logo-icon" aria-hidden="true">D</div>
-                <div>Portfolio<span class="accent-dot">.</span></div>
-            </a>
-            
-            <nav class="desktop-nav" role="navigation" aria-label="Main navigation">
-                <ul>
-                    <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="#about" class="nav-link">About</a></li>
-                    <li><a href="#projects" class="nav-link">Projects</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-            </nav>
-            
-            <!-- Mobile menu button -->
-            <button class="mobile-menu-btn" aria-label="Toggle mobile menu" aria-expanded="false">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
+    <div id="toast">
+        <i data-lucide="check" class="w-4 h-4"></i>
+        <span id="toast-message">COPIED TO CLIPBOARD</span>
+    </div>
+
+    <div class="fixed inset-0 pointer-events-none z-[50] opacity-[0.02] bg-repeat-y" 
+         style="background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.5) 51%); background-size: 100% 4px;"></div>
+    
+    <canvas id="wireframe-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-20"></canvas>
+    
+    <div class="fixed inset-0 pointer-events-none z-[40] bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.6)_100%)]"></div>
+
+    <div class="relative z-10 container mx-auto px-4 md:px-6 py-12 md:py-20 max-w-7xl">
+        
+        <header class="mb-16 md:mb-24 animate-fade-in-up">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 border-b border-neutral-800 pb-12 relative">
+                <div class="absolute bottom-0 right-0 w-32 h-32 bg-white/5 blur-3xl rounded-full pointer-events-none"></div>
+                
+                <div>
+                    <div class="flex items-center gap-3 text-white font-mono text-sm mb-4 font-bold tracking-widest">
+                        <span class="w-2 h-2 bg-white rounded-full animate-pulse shadow-[0_0_10px_white]"></span>
+                        <span class="decrypt-effect" data-text="ONLINE // AVAILABLE FOR WORK">ONLINE // AVAILABLE FOR WORK</span>
+                    </div>
+                    <h1 class="text-6xl md:text-9xl font-black tracking-tighter text-white mb-6 leading-[0.85] uppercase mix-blend-difference group">
+                        <span class="block hover:text-transparent hover:bg-clip-text hover:bg-white transition-all duration-300">DEVEN</span>
+                        <span class="text-neutral-500 block hover:text-white transition-colors duration-300">HODDER<span class="text-white">.</span></span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-neutral-400 tracking-widest font-mono max-w-2xl mt-8 border-l-4 border-white pl-6 py-2 bg-gradient-to-r from-white/5 to-transparent">
+                        <span class="decrypt-effect" data-text="FULL-STACK DEV | 3D ARTIST | UI/UX">FULL-STACK DEV | 3D ARTIST | UI/UX</span>
+                    </p>
+                </div>
+                
+                <div class="flex flex-col gap-6 items-start md:items-end w-full md:w-auto">
+                   <button onclick="copyToClipboard('drhodder1@gmail.com', 'EMAIL')" class="sound-click group flex items-center gap-3 text-neutral-400 hover:text-white transition-colors px-4 py-2 border border-transparent hover:border-white/20 hover:bg-white/5 rounded cursor-pointer">
+                    <span class="text-sm tracking-widest group-hover:text-white transition-colors font-mono">drhodder1@gmail.com</span>
+                    <i data-lucide="copy" class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                  </button>
+                  
+                  <div class="flex flex-wrap gap-3 md:justify-end max-w-md" id="social-links-container"></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex gap-12 mb-12 text-sm font-black tracking-widest border-b border-neutral-900 relative">
+            <button id="tab-portfolio" class="sound-click pb-4 border-b-4 transition-all duration-300 relative group border-white text-white">
+                <span class="relative z-10">PROJECTS</span>
+                <div class="absolute inset-0 bg-white/10 blur-md"></div>
+            </button>
+            <button id="tab-about" class="sound-click pb-4 border-b-4 transition-all duration-300 relative group border-transparent text-neutral-600 hover:text-neutral-400">
+                <span class="relative z-10">ABOUT</span>
+                <div class="absolute inset-0 bg-white/10 blur-md opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </button>
         </div>
-        
-        <!-- Mobile Navigation -->
-        <nav class="mobile-nav" role="navigation" aria-label="Mobile navigation" hidden>
-            <ul>
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <!-- Main Content -->
-    <main id="main-content">
-        <!-- Hero Section -->
-        <section class="hero" id="home">
-            <div class="container hero-content">
-                <div class="hero-text">
-                    <h1>
-                        <span class="hero-greeting">Hi, I'm</span>
-                        <span class="hero-name">Deven</span><span class="accent-dot">.</span>
-                        <span class="hero-title">Freelancer & Developer</span>
-                    </h1>
-                    <p class="hero-description">
-                        I specialize in full-stack development, 3D modeling, animation, and UI/UX design. 
-                        With expertise in 10+ programming languages and a passion for creating immersive digital experiences.
-                    </p>
-                    <div class="hero-buttons">
-                        <a href="#projects" class="btn btn-primary">View My Work</a>
-                        <a href="#contact" class="btn btn-outline">Contact Me</a>
-                        <a href="resume.pdf" class="btn btn-secondary" download>Resume</a>
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div class="wireframe-art">
-                        <canvas id="hero-wireframe" width="400" height="350" aria-label="3D wireframe animation"></canvas>
-                    </div>
-                </div>
+        <main id="view-portfolio" class="animate-fade-in-up min-h-[50vh]">
+            <div class="overflow-x-auto pb-6 mb-8 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
+                <div class="flex gap-4 min-w-max" id="filter-container"></div>
             </div>
-        </section>
 
-        <!-- About Section -->
-        <section class="section" id="about">
-            <div class="container">
-                <h2 class="section-title scroll-reveal">About Me</h2>
-                
-                <div class="about-content">
-                    <div class="about-text scroll-reveal-left">
-                        <h3>Deven Hodder | <span class="accent-text">Mr. White</span></h3>
-                        <p>
-                            Full-stack developer, 3D artist, and UI/UX designer with a passion for creating 
-                            immersive digital experiences. I combine technical expertise with creative design 
-                            to build compelling applications and visual content.
+            <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 perspective-1000"></div>
+            
+            <div id="empty-state" class="hidden py-32 flex flex-col items-center justify-center border-2 border-dashed border-neutral-800 text-neutral-600 font-mono bg-neutral-900/20">
+                <i data-lucide="terminal" class="w-12 h-12 mb-4 opacity-50"></i>
+                <p>NO PROJECTS FOUND IN THIS CATEGORY</p>
+            </div>
+        </main>
+
+        <main id="view-about" class="hidden animate-fade-in-up">
+            <div class="grid md:grid-cols-2 gap-12 md:gap-24">
+                <div class="relative">
+                    <div class="absolute -left-4 -top-4 w-12 h-12 border-l-4 border-t-4 border-white"></div>
+                    
+                    <div class="reveal-on-scroll">
+                        <h3 class="text-4xl font-black text-white mb-8 tracking-tighter hover-header" data-text="BIOGRAPHY">
+                            BIOGRAPHY
+                        </h3>
+                        <p class="text-neutral-400 leading-loose mb-12 text-lg font-light">
+                            <strong class="text-white">Mr. White</strong> Specializing in game development, web applications, and immersive digital experiences. Expert in 10+ programming languages combining technical expertise with creative design. I thrive in <span class="text-white border-b border-white/50">collaborative environments</span> and am dedicated to mastering new workflows.
                         </p>
-                        <p>
-                            Currently expanding my knowledge in SQL and database management while continuing 
-                            to master existing skills in game development, web applications, and multimedia design.
-                        </p>
-                        
-                        <div class="skill-tags" role="list" aria-label="Professional skills">
-                            <span class="skill-tag" role="listitem">Fast Learner</span>
-                            <span class="skill-tag" role="listitem">Communicative</span>
-                            <span class="skill-tag" role="listitem">Reliable</span>
-                            <span class="skill-tag" role="listitem">Time Management</span>
-                            <span class="skill-tag" role="listitem">Problem Solving</span>
-                            <span class="skill-tag" role="listitem">Attention to Detail</span>
-                            <span class="skill-tag" role="listitem">Adaptable</span>
-                            <span class="skill-tag" role="listitem">Client-Focused</span>
-                            <span class="skill-tag" role="listitem">Organized</span>
-                            <span class="skill-tag" role="listitem">Self-Motivated</span>
-                        </div>
                     </div>
 
-                    <div class="about-wireframe">
-                        <canvas id="pyramid" width="300" height="300" aria-label="3D pyramid animation"></canvas>
-                    </div>
-                </div>
-                
-                <div class="info-cards">
-                    <article class="info-card scroll-reveal-scale">
-                        <h4>Professions</h4>
-                        <ul>
-                            <li>Coder & Scripter</li>
-                            <li>3D Modeler & Animator</li>
-                            <li>UI/UX Designer</li>
-                            <li>VFX & SFX Designer</li>
-                            <li>Game Developer</li>
-                        </ul>
-                    </article>
-                    
-                    <article class="info-card scroll-reveal-scale">
-                        <h4>What I Offer</h4>
-                        <ul>
-                            <li>Clear and friendly communication</li>
-                            <li>Fast learning and adaptability</li>
-                            <li>Strong attention to detail</li>
-                            <li>Willingness to revise and improve</li>
-                            <li>Commitment to client satisfaction</li>
-                        </ul>
-                    </article>
-                    
-                    <article class="info-card scroll-reveal-scale">
-                        <h4>Tools & Software</h4>
-                        <ul>
-                            <li>VS Code, PyCharm, Roblox Studio</li>
-                            <li>Blender, Audacity</li>
-                            <li>Git, GitHub, Discord.js</li>
-                            <li>Figma, Canva, Trello</li>
-                        </ul>
-                    </article>
-                    
-                    <article class="info-card scroll-reveal-scale">
-                        <h4>Currently Learning</h4>
-                        <ul>
-                            <li>Game development workflows</li>
-                            <li>Improving UI/UX design skills</li>
-                            <li>3D modeling and animation</li>
-                            <li>Clean and efficient coding</li>
-                            <li>Client communication best practices</li>
-                        </ul>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section class="section" id="projects">
-            <div class="container">
-                <h2 class="section-title scroll-reveal">My Projects</h2>
-                
-                <div class="projects-filter scroll-reveal" role="group" aria-label="Project filters">
-                    <button class="filter-btn active" data-filter="all" aria-pressed="true">All Work</button>
-                    <button class="filter-btn" data-filter="featured" aria-pressed="false">Featured</button>
-                    <button class="filter-btn" data-filter="animation" aria-pressed="false">Animations</button>
-                    <button class="filter-btn" data-filter="vfx" aria-pressed="false">VFX</button>
-                    <button class="filter-btn" data-filter="ui/ux" aria-pressed="false">UI/UX</button>
-                    <button class="filter-btn" data-filter="3d model" aria-pressed="false">3D Models</button>
-                    <button class="filter-btn" data-filter="web app" aria-pressed="false">Web Apps</button>
-                    <button class="filter-btn" data-filter="game" aria-pressed="false">Games</button>
-                </div>
-                
-                <!-- Projects will be dynamically generated here by JavaScript -->
-                <div class="projects-grid" role="list" aria-label="Project portfolio"></div>
-                
-                <div class="view-all-container scroll-reveal">
-                    <button id="viewAllBtn" class="btn btn-primary">View All Projects</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section class="section" id="contact">
-            <div class="container">
-                <h2 class="section-title scroll-reveal">Contact Me</h2>
-                
-                <div class="contact-content">
-                    <div class="contact-info scroll-reveal-left">
-                        <div class="contact-item">
-                            <div class="contact-icon" aria-hidden="true">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Email</h4>
-                                <a href="mailto:drhodder1@gmail.com" class="contact-link">drhodder1@gmail.com</a>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <div class="contact-icon" aria-hidden="true">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Phone</h4>
-                                <a href="tel:+16026157923" class="contact-link">+1 (602) 615-7923</a>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <div class="contact-icon" aria-hidden="true">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Location</h4>
-                                <p>Available for remote work worldwide</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <div class="contact-icon" aria-hidden="true">
-                                <i class="fas fa-share-alt"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Social Links</h4>
-                                <div class="social-links">
-                                    <a href="#" class="social-link" aria-label="GitHub" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-                                    <a href="#" class="social-link" aria-label="LinkedIn" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
-                                    <a href="#" class="social-link" aria-label="Twitter" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
-                                    <a href="#" class="social-link" aria-label="Instagram" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-                                    <a href="#" class="social-link" aria-label="TikTok" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="reveal-on-scroll tilt-card h-full cursor-pointer sound-click" onclick="copyToClipboard('+1 (602) 615-7923', 'PHONE')" style="transition-delay: 100ms">
+                            <div class="bg-neutral-900/30 p-8 border border-neutral-800 hover:border-white transition-colors group h-full relative overflow-hidden">
+                                <div class="tilt-inner relative z-10">
+                                    <div class="flex items-center gap-3 text-white mb-4 group-hover:text-white transition-colors">
+                                        <i data-lucide="phone" class="w-5 h-5"></i>
+                                        <span class="font-bold tracking-wider">CONTACT</span>
+                                    </div>
+                                    <p class="text-neutral-400 text-sm mb-2 font-mono group-hover:text-white transition-colors">+1 (602) 615-7923</p>
+                                    <p class="text-neutral-400 text-sm font-mono group-hover:text-white transition-colors">drhodder1@gmail.com</p>
+                                    <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <i data-lucide="copy" class="w-4 h-4 text-white"></i>
+                                    </div>
                                 </div>
+                                <div class="tilt-glow absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-300 mix-blend-overlay"></div>
+                            </div>
+                        </div>
+
+                        <div class="reveal-on-scroll tilt-card h-full" style="transition-delay: 200ms">
+                            <div class="bg-neutral-900/30 p-8 border border-neutral-800 hover:border-white transition-colors group h-full relative overflow-hidden">
+                                <div class="tilt-inner relative z-10">
+                                    <div class="flex items-center gap-3 text-white mb-4 group-hover:text-white transition-colors">
+                                        <i data-lucide="map-pin" class="w-5 h-5"></i>
+                                        <span class="font-bold tracking-wider">LOCATION</span>
+                                    </div>
+                                    <p class="text-neutral-400 text-sm font-mono">Remote Worldwide</p>
+                                    <p class="text-white text-xs mt-2 font-mono flex items-center gap-2">
+                                        <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+                                        REMOTE AVAILABLE
+                                    </p>
+                                </div>
+                                <div class="tilt-glow absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-300 mix-blend-overlay"></div>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="contact-form-wrapper scroll-reveal-right">
-                        <form id="contactForm" class="contact-form" novalidate>
-                            <div class="form-group">
-                                <label for="name">Name <span class="required" aria-label="required">*</span></label>
-                                <input 
-                                    type="text" 
-                                    id="name" 
-                                    name="name"
-                                    class="form-control" 
-                                    placeholder="Your Name" 
-                                    required
-                                    autocomplete="name"
-                                    maxlength="100">
-                                <span class="error-message" role="alert"></span>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="email">Email <span class="required" aria-label="required">*</span></label>
-                                <input 
-                                    type="email" 
-                                    id="email" 
-                                    name="email"
-                                    class="form-control" 
-                                    placeholder="your.email@example.com" 
-                                    required
-                                    autocomplete="email"
-                                    maxlength="100">
-                                <span class="error-message" role="alert"></span>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="subject">Subject <span class="required" aria-label="required">*</span></label>
-                                <input 
-                                    type="text" 
-                                    id="subject" 
-                                    name="subject"
-                                    class="form-control" 
-                                    placeholder="What's this about?" 
-                                    required
-                                    maxlength="200">
-                                <span class="error-message" role="alert"></span>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="message">Message <span class="required" aria-label="required">*</span></label>
-                                <textarea 
-                                    id="message" 
-                                    name="message"
-                                    class="form-control" 
-                                    placeholder="Tell me about your project..." 
-                                    required
-                                    maxlength="2000"></textarea>
-                                <span class="error-message" role="alert"></span>
-                            </div>
-                            
-                            <button type="submit" class="btn btn-primary btn-submit">
-                                <span class="btn-text">Send Message</span>
-                                <span class="btn-loader" hidden>
-                                    <i class="fas fa-spinner fa-spin"></i> Sending...
-                                </span>
-                            </button>
-                            
-                            <div class="form-status" role="status" aria-live="polite"></div>
-                        </form>
+                </div>
+
+                <div class="space-y-12">
+                    <div class="reveal-on-scroll" style="transition-delay: 300ms">
+                        <h4 class="text-sm font-mono text-white mb-6 border-b border-neutral-800 pb-2 flex justify-between items-center hover-header" data-text="PROFESSIONS">
+                            PROFESSIONS
+                        </h4>
+                        <div class="flex flex-wrap gap-3" id="skills-professions"></div>
+                    </div>
+
+                    <div class="reveal-on-scroll" style="transition-delay: 400ms">
+                        <h4 class="text-sm font-mono text-white mb-6 border-b border-neutral-800 pb-2 flex justify-between items-center hover-header" data-text="TOOLKIT">
+                            TOOLKIT
+                        </h4>
+                        <div class="flex flex-wrap gap-2" id="skills-tools"></div>
+                    </div>
+
+                    <div class="reveal-on-scroll" style="transition-delay: 500ms">
+                        <h4 class="text-sm font-mono text-white mb-6 border-b border-neutral-800 pb-2 flex justify-between items-center hover-header" data-text="SOFT SKILLS">
+                            SOFT SKILLS
+                        </h4>
+                        <div class="flex flex-wrap gap-4" id="skills-soft"></div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+        </main>
+    </div>
 
-    <!-- Footer -->
-    <footer role="contentinfo">
-        <div class="container">
-            <p>&copy; <span id="currentYear">2025</span> Deven Hodder. All rights reserved.</p>
-            <p class="footer-links">
-                <a href="#privacy">Privacy Policy</a> • 
-                <a href="#terms">Terms of Service</a>
+    <footer class="relative z-10 border-t border-neutral-900 mt-20 py-12 bg-black">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-neutral-600 font-mono text-xs" id="footer-year">
+                &copy; 2024 DEVEN HODDER. ALL RIGHTS RESERVED.
             </p>
+            <div class="flex gap-4">
+                <div class="w-2 h-2 bg-neutral-800 rounded-full animate-bounce" style="animation-delay: 75ms"></div>
+                <div class="w-2 h-2 bg-neutral-800 rounded-full animate-bounce" style="animation-delay: 150ms"></div>
+                <div class="w-2 h-2 bg-neutral-800 rounded-full animate-bounce" style="animation-delay: 300ms"></div>
+            </div>
         </div>
     </footer>
 
-    <!-- Project Modal -->
-    <div class="modal" id="projectModal" role="dialog" aria-labelledby="modalTitle" aria-modal="true" hidden>
-        <div class="modal-overlay" aria-hidden="true"></div>
-        <div class="modal-content">
-            <button class="modal-close" id="modalClose" aria-label="Close modal">
-                <i class="fas fa-times"></i>
+    <div id="project-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 backdrop-blur-lg bg-black/90 opacity-0 transition-opacity duration-300">
+        <div class="absolute inset-0" onclick="closeModal()"></div>
+        <div class="relative bg-black border border-neutral-700 w-full max-w-6xl max-h-[90vh] flex flex-col md:flex-row shadow-[0_0_50px_rgba(255,255,255,0.1)] overflow-hidden rounded-sm transform scale-95 transition-transform duration-300" id="modal-content-container">
+            
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white to-transparent opacity-50"></div>
+            
+            <button onclick="closeModal()" class="sound-click absolute top-4 right-4 z-20 p-2 bg-black/50 text-white rounded-full hover:bg-white hover:text-black border border-white/20 transition-all duration-300 hover:rotate-180 hover:scale-110">
+                <i data-lucide="x" class="w-5 h-5"></i>
             </button>
             
-            <div class="modal-header">
-                <div>
-                    <span class="modal-category" id="modalCategory">Web App • Featured</span>
-                    <h2 class="modal-title" id="modalTitle">E-Commerce Dashboard</h2>
+            <div id="modal-media" class="w-full md:w-2/3 bg-neutral-900/50 flex items-center justify-center border-b md:border-b-0 md:border-r border-neutral-800 relative min-h-[300px]"></div>
+
+            <div class="w-full md:w-1/3 p-6 md:p-8 flex flex-col overflow-y-auto bg-black relative">
+                <div class="mb-8">
+                    <span id="modal-id" class="inline-block px-3 py-1 mb-4 text-[10px] font-mono border border-white/20 text-white uppercase tracking-widest rounded-sm">
+                        ID: 0000
+                    </span>
+                    <h2 id="modal-title" class="text-3xl font-black text-white mb-4 uppercase tracking-tighter">Title</h2>
+                    <div class="h-0.5 w-12 bg-white mb-4"></div>
+                    <p id="modal-desc" class="text-neutral-400 text-sm leading-loose font-mono">Description...</p>
                 </div>
-            </div>
-            
-            <div class="modal-body">
-                <div class="modal-image" id="modalImage">
-                    <i class="fas fa-code"></i>
-                </div>
-                
-                <div class="modal-details">
-                    <div class="modal-description" id="modalDescription">
-                        A comprehensive full-stack e-commerce dashboard built with React.js and Node.js.
-                    </div>
-                    
-                    <div class="modal-features">
-                        <h4>Key Features</h4>
-                        <ul id="modalFeatures">
-                            <li>Real-time sales analytics and reporting</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="modal-tech">
-                        <h4>Technologies Used</h4>
-                        <ul id="modalTech">
-                            <li>React.js</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="modal-footer">
-                <div class="modal-nav">
-                    <button class="modal-nav-btn" id="modalPrevBtn" aria-label="Previous project">
-                        <i class="fas fa-arrow-left"></i> Previous
-                    </button>
-                    <button class="modal-nav-btn" id="modalNextBtn" aria-label="Next project">
-                        Next <i class="fas fa-arrow-right"></i>
-                    </button>
-                </div>
-                
-                <div class="modal-links">
-                    <a href="#" class="modal-link" id="modalLiveLink" target="_blank" rel="noopener noreferrer">
-                        <i class="fas fa-external-link-alt"></i> Live Demo
-                    </a>
-                    <a href="#" class="modal-link modal-link-outline" id="modalGithubLink" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-github"></i> View Code
+                <div id="modal-tags" class="flex flex-wrap gap-2 mb-auto"></div>
+                <div class="flex gap-3 mt-8">
+                    <a id="modal-link" href="#" target="_blank" class="sound-click flex-1 py-4 bg-white text-black font-black text-center text-sm uppercase hover:bg-neutral-200 transition-colors tracking-widest clip-path-slant group relative overflow-hidden">
+                        <span class="relative z-10">VIEW PROJECT</span>
+                        <div class="absolute inset-0 bg-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 mix-blend-difference"></div>
                     </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Three.js with integrity check -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
-    <!-- Main JavaScript -->
-    <script src="main.js"></script>
-    
-    <!-- Set current year -->
     <script>
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        const SKILLS = {
+            professions: ["Coder & Scripter", "3D Modeler & Animator", "UI/UX Designer", "VFX & SFX Designer", "Game Developer"],
+            tools: ["VS Code", "PyCharm", "Roblox Studio", "Blender", "Audacity", "Git/GitHub", "Discord.js", "Figma", "Canva", "Trello"],
+            soft: ["Fast Learner", "Communicative", "Reliable", "Problem Solving", "Attention to Detail"]
+        };
+
+        const PORTFOLIO_ITEMS = [
+            { id: 1, type: 'Animation', title: 'Tactical Reload', src: 'https://i.imgur.com/uZVZq0R.mp4', description: 'FPS reload animation study focusing on weight and mechanical precision.', tags: ['Blender', 'FPS', 'Animation'] },
+            { id: 2, type: 'VFX', title: 'Cyberpunk Glitch', src: 'https://i.imgur.com/8p5W2yD.mp4', description: 'Screen distortion and holographic interference effects.', tags: ['After Effects', 'Compositing'] },
+            { id: 3, type: 'Game Dev', title: 'E-Commerce Dashboard', src: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800', description: 'A comprehensive full-stack dashboard with real-time analytics.', tags: ['React', 'Node.js', 'Full Stack'] },
+            { id: 4, type: '3D Model', title: 'Mecha Helmet Unit', src: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?auto=format&fit=crop&q=80&w=800', description: 'Hard surface modeling practice with PBR texturing.', tags: ['ZBrush', 'Substance Painter'] },
+            { id: 5, type: 'SFX', title: 'Sci-Fi Weapon Charge', src: 'https://actions.google.com/sounds/v1/sci_fi/sci_fi_laser_gun_shot.ogg', description: 'Multi-layer synthesized charging sound for a railgun weapon.', tags: ['Sound Design', 'Synth'] },
+            { id: 6, type: 'UI/UX', title: 'Mobile App Interface', src: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&q=80&w=800', description: 'Clean, modern UI design for a fintech application.', tags: ['Figma', 'UX Research'] }
+        ];
+
+        const SOCIALS = [
+            { href: "https://github.com", icon: "github", delay: 100 },
+            { href: "https://linkedin.com", icon: "linkedin", delay: 200 },
+            { href: "https://twitter.com", icon: "twitter", delay: 300 },
+            { href: "https://instagram.com", icon: "instagram", delay: 400 },
+            { href: "https://discord.com", icon: "message-circle", delay: 500 }, 
+            { href: "https://tiktok.com", icon: "video", delay: 600 }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('footer-year').innerHTML = `&copy; ${new Date().getFullYear()} DEVEN HODDER. ALL RIGHTS RESERVED.`;
+            initCursor();
+            initWireframe();
+            initSocials();
+            initFilters();
+            renderPortfolio('all');
+            initAbout();
+            initTabs();
+            initDecryptEffect();
+            initRevealOnScroll();
+            initSmoothScroll();
+            initAudio();
+            
+            lucide.createIcons();
+        });
+
+        function initSmoothScroll() {
+            const lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                direction: 'vertical',
+                gestureDirection: 'vertical',
+                smooth: true,
+                mouseMultiplier: 1,
+                smoothTouch: false,
+                touchMultiplier: 2,
+            });
+
+            function raf(time) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+
+            requestAnimationFrame(raf);
+        }
+
+        let audioCtx;
+        function initAudio() {
+            document.addEventListener('click', resumeAudioContext, { once: true });
+            document.addEventListener('mouseover', resumeAudioContext, { once: true });
+        }
+
+        function resumeAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playSound(type) {
+            if (!audioCtx) return;
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+
+            if (type === 'hover') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(800, now);
+                osc.frequency.exponentialRampToValueAtTime(1200, now + 0.05);
+                
+                gainNode.gain.setValueAtTime(0.02, now); 
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+                
+                osc.start(now);
+                osc.stop(now + 0.05);
+            } else if (type === 'click') {
+                osc.type = 'square';
+                osc.frequency.setValueAtTime(300, now);
+                osc.frequency.exponentialRampToValueAtTime(100, now + 0.1);
+                
+                gainNode.gain.setValueAtTime(0.03, now);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+                
+                osc.start(now);
+                osc.stop(now + 0.1);
+            }
+        }
+
+        let lastHoverTarget = null;
+        let lastHoverTime = 0;
+
+        document.addEventListener('mouseover', (e) => {
+            const target = e.target.closest('.sound-hover, a, button');
+            if (target) {
+               const now = Date.now();
+               
+               if (target !== lastHoverTarget && now - lastHoverTime > 50) {
+                   playSound('hover');
+                   lastHoverTarget = target;
+                   lastHoverTime = now;
+               }
+            } else {
+                lastHoverTarget = null;
+            }
+        });
+
+        document.addEventListener('mousedown', (e) => {
+             if (e.target.closest('.sound-click') || e.target.closest('a') || e.target.closest('button')) {
+                playSound('click');
+            }
+        });
+
+        window.copyToClipboard = (text, type) => {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(`${type} COPIED TO CLIPBOARD`);
+                playSound('click');
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        };
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function initTabs() {
+            const btnPortfolio = document.getElementById('tab-portfolio');
+            const btnAbout = document.getElementById('tab-about');
+            const viewPortfolio = document.getElementById('view-portfolio');
+            const viewAbout = document.getElementById('view-about');
+
+            function setActive(btnActive, btnInactive, viewShow, viewHide) {
+                btnInactive.classList.remove('border-white', 'text-white');
+                btnInactive.classList.add('border-transparent', 'text-neutral-600', 'hover:text-neutral-400');
+                btnInactive.querySelector('.blur-md').classList.remove('opacity-100');
+                btnInactive.querySelector('.blur-md').classList.add('opacity-0', 'group-hover:opacity-100');
+                viewHide.classList.add('hidden');
+
+                btnActive.classList.remove('border-transparent', 'text-neutral-600', 'hover:text-neutral-400');
+                btnActive.classList.add('border-white', 'text-white');
+                btnActive.querySelector('.blur-md').classList.remove('opacity-0', 'group-hover:opacity-100');
+                btnActive.querySelector('.blur-md').classList.add('opacity-100');
+                viewShow.classList.remove('hidden');
+            }
+
+            btnPortfolio.addEventListener('click', () => setActive(btnPortfolio, btnAbout, viewPortfolio, viewAbout));
+            btnAbout.addEventListener('click', () => setActive(btnAbout, btnPortfolio, viewAbout, viewPortfolio));
+        }
+
+        const CATEGORIES = [
+            { id: 'all', label: 'ALL', icon: 'layers' },
+            { id: 'Game Dev', label: 'GAME', icon: 'gamepad-2' },
+            { id: 'Animation', label: 'ANIM', icon: 'film' },
+            { id: 'VFX', label: 'VFX', icon: 'wand-2' },
+            { id: '3D Model', label: '3D', icon: 'box' },
+            { id: 'UI/UX', label: 'UI/UX', icon: 'smartphone' },
+            { id: 'SFX', label: 'SFX', icon: 'volume-2' }
+        ];
+
+        let currentFilter = 'all';
+
+        function initFilters() {
+            const container = document.getElementById('filter-container');
+            container.innerHTML = CATEGORIES.map(cat => `
+                <button onclick="handleFilterClick('${cat.id}')" 
+                        class="filter-btn group relative overflow-hidden flex items-center gap-2 px-5 py-2 text-xs md:text-sm tracking-wider font-bold transition-all duration-300 border skew-x-[-10deg] cursor-pointer
+                        ${currentFilter === cat.id ? 'bg-white text-black border-white shadow-[0_0_20px_rgba(255,255,255,0.4)] scale-105' : 'bg-black/50 text-neutral-500 border-neutral-800 hover:text-white hover:border-white'}"
+                        data-id="${cat.id}">
+                    <div class="absolute inset-0 bg-white transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out z-0 opacity-20"></div>
+                    <div class="skew-x-[10deg] flex items-center gap-2 relative z-10">
+                        <i data-lucide="${cat.icon}" class="w-3.5 h-3.5 ${currentFilter === cat.id ? 'animate-pulse' : ''}"></i>
+                        ${cat.label}
+                    </div>
+                </button>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        window.handleFilterClick = (filterId) => {
+            currentFilter = filterId;
+            initFilters(); 
+            renderPortfolio(filterId);
+        };
+
+        function renderPortfolio(filter) {
+            const grid = document.getElementById('portfolio-grid');
+            const empty = document.getElementById('empty-state');
+            grid.innerHTML = '';
+            
+            const items = filter === 'all' ? PORTFOLIO_ITEMS : PORTFOLIO_ITEMS.filter(item => item.type === filter);
+            
+            if (items.length === 0) {
+                empty.classList.remove('hidden');
+            } else {
+                empty.classList.add('hidden');
+                items.forEach((item, index) => {
+                    const delay = index * 100;
+                    const card = document.createElement('div');
+                    card.className = 'tilt-card cursor-pointer animate-fade-in-up sound-click';
+                    card.style.animationDelay = `${delay}ms`;
+                    card.onclick = () => openModal(item);
+                    
+                    const isVideo = ['Animation', 'VFX'].includes(item.type);
+                    const isAudio = item.type === 'SFX';
+                    const mediaHtml = getThumbnailHtml(item, isVideo, isAudio);
+
+                    card.innerHTML = `
+                        <div class="group relative aspect-square" onmousemove="handleTilt(event, this)" onmouseleave="resetTilt(this)">
+                            <div class="tilt-inner w-full h-full preserve-3d transition-transform duration-100 ease-out bg-neutral-900 border border-neutral-800 overflow-hidden relative">
+                                ${mediaHtml}
+                                <div class="absolute top-0 left-0 w-2 h-2 border-l-2 border-t-2 border-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                <div class="absolute top-0 right-0 w-2 h-2 border-r-2 border-t-2 border-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                <div class="absolute bottom-0 left-0 w-2 h-2 border-l-2 border-b-2 border-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                                <div class="absolute bottom-0 right-0 w-2 h-2 border-r-2 border-b-2 border-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+                                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-5">
+                                    <span class="text-[10px] font-mono text-white/80 uppercase tracking-widest mb-1 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">${item.type}</span>
+                                    <h3 class="text-white text-lg font-black tracking-wide translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">${item.title}</h3>
+                                </div>
+                                <div class="tilt-glow absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-300 mix-blend-overlay" style="background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.8), transparent 60%)"></div>
+                            </div>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                    
+                    if(isVideo) {
+                        const container = card.querySelector('.group');
+                        const video = card.querySelector('video');
+                        container.addEventListener('mouseenter', () => video.play().catch(()=>{}));
+                        container.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+                    }
+                });
+            }
+        }
+
+        function getThumbnailHtml(item, isVideo, isAudio) {
+            let src = item.src;
+            if (src.includes('imgur.com') && !src.match(/\.(mp4|webm|gif|png|jpg|jpeg)$/)) {
+                 const parts = src.split('/');
+                 const id = parts[parts.length - 1];
+                 src = (isVideo) ? `https://i.imgur.com/${id}.mp4` : `https://i.imgur.com/${id}.png`;
+            }
+
+            if (isAudio) {
+                return `
+                <div class="w-full h-full bg-neutral-900 flex flex-col items-center justify-center relative group overflow-hidden">
+                    <div class="absolute inset-0 flex items-center justify-center gap-1 opacity-20">
+                         ${Array(12).fill(0).map((_, i) => `<div class="w-1 bg-white animate-pulse" style="height: ${20 + Math.random() * 60}%; animation-delay: ${i * 0.1}s"></div>`).join('')}
+                    </div>
+                    <div class="z-10 w-16 h-16 rounded-full border-2 border-white/20 bg-black/50 backdrop-blur-sm flex items-center justify-center text-white">
+                        <i data-lucide="play" class="w-6 h-6 ml-1"></i>
+                    </div>
+                </div>`;
+            } else if (isVideo) {
+                return `<video src="${src}" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0" muted playsinline loop></video>`;
+            } else {
+                return `<img src="${src}" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0" />`;
+            }
+        }
+
+        window.handleTilt = (e, card) => {
+            const inner = card.querySelector('.tilt-inner');
+            const glow = card.querySelector('.tilt-glow');
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const intensity = 10;
+            
+            const rotateX = ((y - centerY) / centerY) * -intensity;
+            const rotateY = ((x - centerX) / centerX) * intensity;
+            
+            inner.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            
+            glow.style.opacity = '0.2';
+            glow.style.background = `radial-gradient(circle at ${(x / rect.width) * 100}% ${(y / rect.height) * 100}%, rgba(255,255,255,0.8), transparent 60%)`;
+        };
+
+        window.resetTilt = (card) => {
+            const inner = card.querySelector('.tilt-inner');
+            const glow = card.querySelector('.tilt-glow');
+            inner.style.transform = 'rotateX(0) rotateY(0) scale(1)';
+            glow.style.opacity = '0';
+        };
+
+        function initAbout() {
+            document.getElementById('skills-professions').innerHTML = SKILLS.professions.map(s => 
+                `<span class="px-4 py-3 bg-neutral-900 border border-neutral-700 text-sm text-white hover:bg-white hover:text-black hover:scale-105 transition-all duration-300 font-bold tracking-wide cursor-default sound-hover">${s}</span>`
+            ).join('');
+
+            document.getElementById('skills-tools').innerHTML = SKILLS.tools.map(t => 
+                `<span class="px-3 py-1 bg-black border border-neutral-800 text-xs text-neutral-400 font-mono hover:bg-white hover:text-black hover:border-white transition-all duration-200 cursor-crosshair hover:-translate-y-1 sound-hover">${t}</span>`
+            ).join('');
+
+            document.getElementById('skills-soft').innerHTML = SKILLS.soft.map(s => 
+                `<span class="flex items-center gap-2 text-sm text-neutral-300 hover:text-white transition-colors sound-hover"><span class="w-1 h-1 bg-white"></span>${s}</span>`
+            ).join('');
+            
+            document.querySelectorAll('.tilt-card .group').forEach(el => {
+                el.onmousemove = (e) => handleTilt(e, el.parentElement);
+                el.onmouseleave = () => resetTilt(el.parentElement);
+            });
+        }
+
+        function initSocials() {
+            const container = document.getElementById('social-links-container');
+            container.innerHTML = SOCIALS.map(s => `
+                <div class="relative inline-block" onmousemove="handleMagnetic(event, this)" onmouseleave="resetMagnetic(this)">
+                    <a href="${s.href}" target="_blank" class="magnetic-child group relative flex items-center justify-center p-3 border border-neutral-800 bg-black overflow-hidden hover:border-white hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                    style="animation-delay: ${s.delay}ms; transition: transform 0.1s ease-out;">
+                        <div class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out"></div>
+                        <div class="relative z-10 text-neutral-400 group-hover:text-black transition-colors duration-300">
+                            <i data-lucide="${s.icon}" class="w-5 h-5"></i>
+                        </div>
+                    </a>
+                </div>
+            `).join('') + `
+            <div class="relative inline-block" onmousemove="handleMagnetic(event, this)" onmouseleave="resetMagnetic(this)">
+                <button class="sound-click magnetic-child p-3 bg-white text-black hover:bg-neutral-200 hover:shadow-[0_0_20px_white] transition-all font-bold group relative overflow-hidden" style="transition: transform 0.1s ease-out;">
+                    <i data-lucide="download" class="w-5 h-5 group-hover:translate-y-1 transition-transform"></i>
+                </button>
+            </div>`;
+        }
+
+        window.handleMagnetic = (e, parent) => {
+            const child = parent.querySelector('.magnetic-child');
+            const { left, top, width, height } = parent.getBoundingClientRect();
+            const x = (e.clientX - (left + width / 2)) / width * 40; 
+            const y = (e.clientY - (top + height / 2)) / height * 40;
+            
+            child.style.transform = `translate(${x}px, ${y}px)`;
+        };
+
+        window.resetMagnetic = (parent) => {
+            const child = parent.querySelector('.magnetic-child');
+            child.style.transform = 'translate(0px, 0px)';
+            child.style.transition = 'transform 0.5s ease-out';
+            setTimeout(() => {
+                child.style.transition = 'transform 0.1s ease-out';
+            }, 500);
+        };
+
+        function initDecryptEffect() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&";
+            const elements = document.querySelectorAll('.decrypt-effect, .hover-header');
+
+            const decrypt = (el) => {
+                const originalText = el.getAttribute('data-text') || el.innerText;
+                let iteration = 0;
+                const interval = setInterval(() => {
+                    el.innerText = originalText
+                        .split("")
+                        .map((letter, index) => {
+                            if (index < iteration) return originalText[index];
+                            return chars[Math.floor(Math.random() * chars.length)];
+                        })
+                        .join("");
+                    
+                    if (iteration >= originalText.length) clearInterval(interval);
+                    iteration += 1/3;
+                }, 30);
+            };
+
+            document.querySelectorAll('.decrypt-effect').forEach(el => decrypt(el));
+
+            document.querySelectorAll('.hover-header').forEach(el => {
+                el.addEventListener('mouseenter', () => decrypt(el));
+            });
+        }
+
+        window.openModal = (item) => {
+            playSound('click');
+            const modal = document.getElementById('project-modal');
+            const mediaContainer = document.getElementById('modal-media');
+            const title = document.getElementById('modal-title');
+            const desc = document.getElementById('modal-desc');
+            const id = document.getElementById('modal-id');
+            const tags = document.getElementById('modal-tags');
+            const link = document.getElementById('modal-link');
+            const contentContainer = document.getElementById('modal-content-container');
+
+            title.innerText = item.title;
+            desc.innerText = item.description;
+            id.innerText = `ID: ${item.id.toString().padStart(4, '0')}`;
+            link.href = item.src;
+
+            let src = item.src;
+            if (src.includes('imgur.com') && !src.match(/\.(mp4|webm|gif|png|jpg|jpeg)$/)) {
+                 const parts = src.split('/');
+                 const fileId = parts[parts.length - 1];
+                 const isVideo = ['Animation', 'VFX'].includes(item.type);
+                 src = isVideo ? `https://i.imgur.com/${fileId}.mp4` : `https://i.imgur.com/${fileId}.png`;
+            }
+
+            const isVideo = ['Animation', 'VFX'].includes(item.type);
+            const isAudio = item.type === 'SFX';
+
+            if (isAudio) {
+                mediaContainer.innerHTML = `<div class="w-full h-full min-h-[300px] flex items-center justify-center bg-black/50">
+                    <audio controls class="w-3/4"><source src="${src}" type="audio/ogg">Your browser does not support audio.</audio>
+                </div>`;
+            } else if (isVideo) {
+                mediaContainer.innerHTML = `<video src="${src}" class="max-w-full max-h-[60vh] md:max-h-full" controls autoplay loop></video>`;
+            } else {
+                mediaContainer.innerHTML = `<img src="${src}" alt="${item.title}" class="max-w-full max-h-[60vh] md:max-h-full object-contain" />`;
+            }
+
+            tags.innerHTML = item.tags.map(tag => `<span class="text-[10px] font-bold text-black bg-white px-2 py-1 uppercase">${tag}</span>`).join('');
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                contentContainer.classList.remove('scale-95');
+                contentContainer.classList.add('scale-100');
+            }, 10);
+            
+            lucide.createIcons();
+        };
+
+        window.closeModal = () => {
+            playSound('click');
+            const modal = document.getElementById('project-modal');
+            const contentContainer = document.getElementById('modal-content-container');
+            const mediaContainer = document.getElementById('modal-media');
+
+            modal.classList.add('opacity-0');
+            contentContainer.classList.remove('scale-100');
+            contentContainer.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                mediaContainer.innerHTML = ''; 
+            }, 300);
+        };
+
+        function initCursor() {
+            const dot = document.getElementById('cursor-dot');
+            const ring = document.getElementById('cursor-ring');
+            
+            let mouseX = 0;
+            let mouseY = 0;
+            let ringX = 0;
+            let ringY = 0;
+
+            window.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                
+                dot.style.left = `${mouseX}px`;
+                dot.style.top = `${mouseY}px`;
+            });
+
+            function animateRing() {
+                ringX += (mouseX - ringX) * 0.15;
+                ringY += (mouseY - ringY) * 0.15;
+                ring.style.left = `${ringX}px`;
+                ring.style.top = `${ringY}px`;
+                requestAnimationFrame(animateRing);
+            }
+            animateRing();
+
+            const checkHover = (e) => {
+                const target = e.target;
+                const isInteractive = 
+                    target.tagName === 'BUTTON' ||
+                    target.tagName === 'A' ||
+                    target.tagName === 'INPUT' ||
+                    target.closest('button') ||
+                    target.closest('a') ||
+                    target.closest('.cursor-pointer');
+
+                if (isInteractive) {
+                    ring.classList.add('active');
+                } else {
+                    ring.classList.remove('active');
+                }
+            };
+
+            window.addEventListener('mouseover', checkHover);
+        }
+
+        function initWireframe() {
+            const canvas = document.getElementById('wireframe-canvas');
+            const ctx = canvas.getContext('2d');
+            let width, height;
+            let particles = [];
+            let mouseX = 0, mouseY = 0;
+
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+
+            function createParticles() {
+                particles = [];
+                const count = Math.floor((width * height) / 12000);
+                for (let i = 0; i < count; i++) {
+                    particles.push({
+                        x: Math.random() * width,
+                        y: Math.random() * height,
+                        vx: (Math.random() - 0.5) * 0.3,
+                        vy: (Math.random() - 0.5) * 0.3,
+                        size: Math.random() * 1.5,
+                        alpha: Math.random() * 0.5 + 0.1
+                    });
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+
+                particles.forEach((p, i) => {
+                    const dx = p.x - mouseX;
+                    const dy = p.y - mouseY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 200) {
+                        const force = (200 - dist) / 200;
+                        p.x += (dx / dist) * force * 2;
+                        p.y += (dy / dist) * force * 2;
+                    }
+
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < 0 || p.x > width) p.vx *= -1;
+                    if (p.y < 0 || p.y > height) p.vy *= -1;
+
+                    ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const p2 = particles[j];
+                        const dx2 = p.x - p2.x;
+                        const dy2 = p.y - p2.y;
+                        const dist2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+
+                        if (dist2 < 100) {
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(p2.x, p2.y);
+                            ctx.stroke();
+                        }
+                    }
+                });
+                requestAnimationFrame(animate);
+            }
+
+            window.addEventListener('resize', () => { resize(); createParticles(); });
+            window.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+            
+            resize();
+            createParticles();
+            animate();
+        }
+
+        function initRevealOnScroll() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('opacity-100', 'translate-y-0');
+                        entry.target.classList.remove('opacity-0', 'translate-y-10');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+                el.classList.add('transition-all', 'duration-1000', 'ease-out', 'opacity-0', 'translate-y-10');
+                observer.observe(el);
+            });
+        }
     </script>
 </body>
 </html>
