@@ -15,3 +15,5 @@ It features:
 - Smooth Scrolling: Implemented with Lenis for a premium feel.
 
 Feel free to look around the code!
+
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/158c2b84-e5a8-40eb-8705-872f7376a8b0" />
