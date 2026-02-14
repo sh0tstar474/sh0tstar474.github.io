@@ -213,7 +213,7 @@
                             BIOGRAPHY
                         </h3>
                         <p class="text-neutral-400 leading-loose mb-12 text-lg font-light">
-                            <strong class="text-white">Mr. White</strong> Specializing in game development, web applications, and immersive digital experiences. Expereinced in 10+ programming languages combining technical expertise with creative design. I thrive in <span class="text-white border-b border-white/50">collaborative environments</span> and am dedicated to mastering new workflows.
+                            <strong class="text-white">Mr. White</strong> Specializing in game development, web applications, and immersive digital experiences. Experienced in 10+ programming languages combining technical expertise with creative design. I thrive in <span class="text-white border-b border-white/50">collaborative environments</span> and am dedicated to mastering new workflows.
                         </p>
                     </div>
 
@@ -326,6 +326,13 @@
     </div>
 
     <script>
+        // --- GITHUB CONFIGURATION ---
+        const GITHUB_CONFIG = {
+            username: 'sh0tstar474',
+            repo: 'sh0tstar474.github.io',
+            branch: 'main',
+        };
+
         const SKILLS = {
             professions: ["Coder & Scripter", "3D Modeler & Animator", "UI/UX Designer", "VFX & SFX Designer", "Game Developer"],
             tools: ["VS Code", "PyCharm", "Roblox Studio", "Blender", "Audacity", "Unity", "paint.net", "Gimp", "Adobe Illustrator", "Adobe Photoshop", "VirtualBox", "Wireshark", "Git/GitHub", "Discord.js", "HTML", "CSS", "Javascript", "Java", "Python", "C++", "Lua", "C#", "Bash", "AutoHotKey"],
@@ -333,17 +340,38 @@
         };
 
         const PORTFOLIO_ITEMS = [
-            { id: 1, type: 'Animation', title: 'Kaioken', src: 'https://i.imgur.com/uZVZq0R.mp4', description: 'Kaioken animation based on Dragon Ball Z.', tags: ['Blender', 'Transformation', 'Animation', "Roblox"] },
-            { id: 2, type: 'Animation', title: 'Vigil Elite', src: 'https://i.imgur.com/n1k53Qm.mp4', description: 'Vigil elite animation recreation from Tom Clancys: Rainbow Six Siege. This was my first cutscene animation and probably my longest one yet.', tags: ['Blender', 'Rainbow Six Siege', 'Animation', "Roblox", "Cutscene"] }
+            { id: 1, type: 'Animation', title: 'Kaioken', src: 'https://i.imgur.com/uZVZq0R.mp4', description: 'Kaioken animation based on Dragon Ball Z.', tags: ['Blender', 'Transformation', 'Animation', "Roblox"], featured: true },
+            { id: 2, type: 'Animation', title: 'Vigil Elite', src: 'https://i.imgur.com/n1k53Qm.mp4', description: 'Vigil elite animation recreation from Tom Clancys: Rainbow Six Siege.', tags: ['Blender', 'Rainbow Six Siege', 'Animation', "Roblox", "Cutscene"], featured: true },
+            { id: 4, type: 'SFX', title: 'Huh Rustle', src: 'Huh Rustle.mp3', description: 'Sound effect created for immersive environments.', tags: ['Audacity', 'SFX'] },
+            { id: 5, type: 'SFX', title: 'Light Kick', src: 'Light Kick.mp3', description: 'Combat sound effect for fighting games.', tags: ['Audacity', 'SFX', 'Combat'] },
+            { id: 6, type: 'SFX', title: 'Light Kick Explosion', src: 'Light Kick Explosion Air.mp3', description: 'Impact variant of the light kick sound.', tags: ['Audacity', 'SFX', 'Combat'] },
+            { id: 7, type: 'SFX', title: 'Yata Mirror Start', src: 'Yata Mirror Start.mp3', description: 'Magical activation sound effect.', tags: ['Audacity', 'SFX', 'Magic'] },
+            { id: 8, type: 'SFX', title: 'Yata Mirror End', src: 'Yata Mirror End.mp3', description: 'Magical deactivation sound effect.', tags: ['Audacity', 'SFX', 'Magic'] },
         ];
 
         const SOCIALS = [
             { href: "https://github.com/sh0tstar474", icon: "github", delay: 100 },
-            // { href: "https://twitter.com", icon: "twitter", delay: 300 },
-            // { href: "https://instagram.com", icon: "instagram", delay: 400 },
             { href: "https://discord.com/users/756216295179157586", icon: "discord", delay: 500 }, 
             { href: "https://www.tiktok.com/@sh0tstar47", icon: "tiktok", delay: 600 }
         ];
+
+        // --- GLOBAL AUDIO STATE ---
+        let currentAudio = null;
+
+        // --- HELPER TO GET GITHUB URL ---
+        function getAssetUrl(item) {
+            if (item.type === 'SFX' && !item.src.startsWith('http')) {
+                return `https://raw.githubusercontent.com/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/audio/${encodeURIComponent(item.src)}`;
+            }
+            let src = item.src;
+            if (src.includes('imgur.com') && !src.match(/\.(mp4|webm|gif|png|jpg|jpeg)$/)) {
+                 const parts = src.split('/');
+                 const id = parts[parts.length - 1];
+                 const isVideo = ['Animation', 'VFX'].includes(item.type);
+                 src = (isVideo) ? `https://i.imgur.com/${id}.mp4` : `https://i.imgur.com/${id}.png`;
+            }
+            return src;
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('footer-year').innerHTML = `&copy; ${new Date().getFullYear()} DEVEN HODDER. ALL RIGHTS RESERVED.`;
@@ -432,30 +460,6 @@
             }
         }
 
-        let lastHoverTarget = null;
-        let lastHoverTime = 0;
-
-        // document.addEventListener('mouseover', (e) => {
-        //     const target = e.target.closest('.sound-hover, a, button');
-        //     if (target) {
-        //        const now = Date.now();
-               
-        //        if (target !== lastHoverTarget && now - lastHoverTime > 50) {
-        //            playSound('hover');
-        //            lastHoverTarget = target;
-        //            lastHoverTime = now;
-        //        }
-        //     } else {
-        //         lastHoverTarget = null;
-        //     }
-        // });
-
-        // document.addEventListener('mousedown', (e) => {
-        //      if (e.target.closest('.sound-click') || e.target.closest('a') || e.target.closest('button')) {
-        //         playSound('click');
-        //     }
-        // });
-
         window.copyToClipboard = (text, type) => {
             navigator.clipboard.writeText(text).then(() => {
                 showToast(`${type} COPIED TO CLIPBOARD`);
@@ -502,7 +506,7 @@
 
         const CATEGORIES = [
             { id: 'all', label: 'ALL', icon: 'layers' },
-            { id: 'Game Dev', label: 'FEATURED', icon: 'gamepad-2' },
+            { id: 'featured', label: 'FEATURED', icon: 'gamepad-2' }, 
             { id: 'Animation', label: 'ANIM', icon: 'film' },
             { id: 'VFX', label: 'VFX', icon: 'wand-2' },
             { id: '3D Model', label: '3D', icon: 'box' },
@@ -540,7 +544,14 @@
             const empty = document.getElementById('empty-state');
             grid.innerHTML = '';
             
-            const items = filter === 'all' ? PORTFOLIO_ITEMS : PORTFOLIO_ITEMS.filter(item => item.type === filter);
+            let items;
+            if (filter === 'all') {
+                items = PORTFOLIO_ITEMS;
+            } else if (filter === 'featured') {
+                items = PORTFOLIO_ITEMS.filter(item => item.featured);
+            } else {
+                items = PORTFOLIO_ITEMS.filter(item => item.type === filter);
+            }
             
             if (items.length === 0) {
                 empty.classList.remove('hidden');
@@ -551,7 +562,8 @@
                     const card = document.createElement('div');
                     card.className = 'tilt-card cursor-pointer animate-fade-in-up sound-click';
                     card.style.animationDelay = `${delay}ms`;
-                    card.onclick = () => openModal(item);
+                    // Updated Click Handler: Passes event and card reference
+                    card.onclick = (e) => handleProjectClick(e, item, card);
                     
                     const isVideo = ['Animation', 'VFX'].includes(item.type);
                     const isAudio = item.type === 'SFX';
@@ -586,34 +598,95 @@
             }
         }
 
-        function getThumbnailHtml(item, isVideo, isAudio) {
-            let src = item.src;
-            if (src.includes('imgur.com') && !src.match(/\.(mp4|webm|gif|png|jpg|jpeg)$/)) {
-                 const parts = src.split('/');
-                 const id = parts[parts.length - 1];
-                 src = (isVideo) ? `https://i.imgur.com/${id}.mp4` : `https://i.imgur.com/${id}.png`;
+        // --- AUDIO CLICK HANDLER ---
+        function handleProjectClick(e, item, card) {
+            if (item.type === 'SFX') {
+                const audio = document.getElementById(`audio-${item.id}`);
+                const iconContainer = document.getElementById(`icon-container-${item.id}`);
+                const icon = document.getElementById(`icon-${item.id}`);
+
+                if (!audio) {
+                    openModal(item);
+                    return;
+                }
+
+                if (!audio.paused) {
+                    // Playing -> Stop & Open Modal
+                    audio.pause();
+                    audio.currentTime = 0;
+                    resetAudioUI(item.id);
+                    openModal(item);
+                } else {
+                    // Stopped -> Play
+                    stopAllAudio();
+                    
+                    audio.play().catch(e => console.error("Audio play failed", e));
+                    
+                    // Animate Icon
+                    if (iconContainer) iconContainer.classList.add('scale-110', 'border-white', 'bg-white/10');
+                    if (icon) icon.classList.add('animate-pulse'); 
+                    
+                    currentAudio = audio;
+                    
+                    audio.onended = () => {
+                        resetAudioUI(item.id);
+                        currentAudio = null;
+                    };
+                }
+            } else {
+                openModal(item);
             }
+        }
+
+        function stopAllAudio() {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                document.querySelectorAll('audio').forEach(a => {
+                    if (a.id) {
+                        const id = a.id.replace('audio-', '');
+                        resetAudioUI(id);
+                    }
+                });
+                currentAudio = null;
+            }
+        }
+
+        function resetAudioUI(id) {
+            const iconContainer = document.getElementById(`icon-container-${id}`);
+            const icon = document.getElementById(`icon-${id}`);
+            if (iconContainer) iconContainer.classList.remove('scale-110', 'border-white', 'bg-white/10');
+            if (icon) icon.classList.remove('animate-pulse');
+        }
+
+        function getThumbnailHtml(item, isVideo, isAudio) {
+            const finalSrc = getAssetUrl(item);
 
             if (isAudio) {
                 return `
                 <div class="w-full h-full bg-neutral-900 flex flex-col items-center justify-center relative group overflow-hidden">
+                    <audio id="audio-${item.id}" src="${finalSrc}" preload="none"></audio>
                     <div class="absolute inset-0 flex items-center justify-center gap-1 opacity-20">
                          ${Array(12).fill(0).map((_, i) => `<div class="w-1 bg-white animate-pulse" style="height: ${20 + Math.random() * 60}%; animation-delay: ${i * 0.1}s"></div>`).join('')}
                     </div>
-                    <div class="z-10 w-16 h-16 rounded-full border-2 border-white/20 bg-black/50 backdrop-blur-sm flex items-center justify-center text-white">
-                        <i data-lucide="play" class="w-6 h-6 ml-1"></i>
+                    <div id="icon-container-${item.id}" class="z-10 w-16 h-16 rounded-full border-2 border-white/20 bg-black/50 backdrop-blur-sm flex items-center justify-center text-white transition-all duration-300">
+                        <i id="icon-${item.id}" data-lucide="play" class="w-6 h-6 ml-1"></i>
                     </div>
                 </div>`;
             } else if (isVideo) {
-                return `<video src="${src}" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0" muted playsinline loop></video>`;
+                return `<video src="${finalSrc}" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0" muted playsinline loop></video>`;
             } else {
-                return `<img src="${src}" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0" />`;
+                return `<img src="${finalSrc}" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0" />`;
             }
         }
 
         window.handleTilt = (e, card) => {
+            if (!card) return;
             const inner = card.querySelector('.tilt-inner');
             const glow = card.querySelector('.tilt-glow');
+            
+            if (!inner || !glow) return;
+
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
@@ -632,8 +705,12 @@
         };
 
         window.resetTilt = (card) => {
+            if (!card) return;
             const inner = card.querySelector('.tilt-inner');
             const glow = card.querySelector('.tilt-glow');
+
+            if (!inner || !glow) return;
+
             inner.style.transform = 'rotateX(0) rotateY(0) scale(1)';
             glow.style.opacity = '0';
         };
@@ -651,9 +728,10 @@
                 `<span class="flex items-center gap-2 text-sm text-neutral-300 hover:text-white transition-colors sound-hover"><span class="w-1 h-1 bg-white"></span>${s}</span>`
             ).join('');
             
-            document.querySelectorAll('.tilt-card .group').forEach(el => {
-                el.onmousemove = (e) => handleTilt(e, el.parentElement);
-                el.onmouseleave = () => resetTilt(el.parentElement);
+            // Fixed selector to only target About section cards, preventing interference with Portfolio items
+            document.querySelectorAll('#view-about .tilt-card .group').forEach(el => {
+                el.onmousemove = (e) => handleTilt(e, el);
+                el.onmouseleave = () => resetTilt(el);
             });
         }
 
@@ -735,6 +813,8 @@
 
         window.openModal = (item) => {
             playSound('click');
+            stopAllAudio(); // Stop audio if opening modal for any item
+            
             const modal = document.getElementById('project-modal');
             const mediaContainer = document.getElementById('modal-media');
             const title = document.getElementById('modal-title');
@@ -747,27 +827,21 @@
             title.innerText = item.title;
             desc.innerText = item.description;
             id.innerText = `ID: ${item.id.toString().padStart(4, '0')}`;
-            link.href = item.src;
-
-            let src = item.src;
-            if (src.includes('imgur.com') && !src.match(/\.(mp4|webm|gif|png|jpg|jpeg)$/)) {
-                 const parts = src.split('/');
-                 const fileId = parts[parts.length - 1];
-                 const isVideo = ['Animation', 'VFX'].includes(item.type);
-                 src = isVideo ? `https://i.imgur.com/${fileId}.mp4` : `https://i.imgur.com/${fileId}.png`;
-            }
+            
+            const finalSrc = getAssetUrl(item);
+            link.href = finalSrc;
 
             const isVideo = ['Animation', 'VFX'].includes(item.type);
             const isAudio = item.type === 'SFX';
 
             if (isAudio) {
                 mediaContainer.innerHTML = `<div class="w-full h-full min-h-[300px] flex items-center justify-center bg-black/50">
-                    <audio controls class="w-3/4"><source src="${src}" type="audio/ogg">Your browser does not support audio.</audio>
+                    <audio controls class="w-3/4"><source src="${finalSrc}" type="audio/mpeg">Your browser does not support audio.</audio>
                 </div>`;
             } else if (isVideo) {
-                mediaContainer.innerHTML = `<video src="${src}" class="max-w-full max-h-[60vh] md:max-h-full" controls autoplay loop></video>`;
+                mediaContainer.innerHTML = `<video src="${finalSrc}" class="max-w-full max-h-[60vh] md:max-h-full" controls autoplay loop></video>`;
             } else {
-                mediaContainer.innerHTML = `<img src="${src}" alt="${item.title}" class="max-w-full max-h-[60vh] md:max-h-full object-contain" />`;
+                mediaContainer.innerHTML = `<img src="${finalSrc}" alt="${item.title}" class="max-w-full max-h-[60vh] md:max-h-full object-contain" />`;
             }
 
             tags.innerHTML = item.tags.map(tag => `<span class="text-[10px] font-bold text-black bg-white px-2 py-1 uppercase">${tag}</span>`).join('');
