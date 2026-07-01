@@ -2,14 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
     <title>Deven Hodder | Portfolio</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M5 16h14v-6c0-3.87-3.13-7-7-7s-7 3.13-7 7v6zm-2 2h18v2H3v-2z'/%3E%3C/svg%3E">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.29/dist/lenis.min.js"></script>
     <style>
-        *, *::before, *::after { cursor: none !important; }
+        /* Custom cursor only applies to devices with a real mouse (hover-capable + fine pointer).
+           Touch devices keep native behavior — fixes stray cursor artifacts on mobile/tablet. */
+        @media (hover: hover) and (pointer: fine) {
+            *, *::before, *::after { cursor: none !important; }
+        }
+        #cursor-dot, #cursor-ring { display: none; }
+        @media (hover: hover) and (pointer: fine) {
+            #cursor-dot, #cursor-ring { display: block; }
+        }
         html.lenis { height: auto; }
         .lenis.lenis-smooth { scroll-behavior: auto; }
         .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
@@ -780,10 +789,52 @@
             if (isVideo) {
                 const container = card.querySelector('.group');
                 const video = card.querySelector('video');
-                container.addEventListener('mouseenter', () => video.play().catch(()=>{}));
-                container.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+                setupThumbnailVideo(container, video);
             }
         });
+    }
+
+    // Detect real mouse vs touch once — reused by hover-only interactions.
+    const isTouchDevice = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+
+    // Lazily loads each thumbnail video once it scrolls near the viewport, then "primes" it
+    // by playing + immediately pausing so the first frame renders as a static thumbnail.
+    // This is what actually paints a preview frame on mobile/tablet — without it, videos
+    // stay blank until tapped because there is no hover event to trigger playback there.
+    const thumbnailObserver = ('IntersectionObserver' in window) ? new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const video = entry.target;
+            thumbnailObserver.unobserve(video);
+            loadAndPrimeVideo(video);
+        });
+    }, { rootMargin: '400px 0px' }) : null;
+
+    function loadAndPrimeVideo(video) {
+        if (video.dataset.loaded) return;
+        video.dataset.loaded = '1';
+        const dataSrc = video.dataset.src;
+        if (dataSrc) video.src = dataSrc;
+        const prime = () => {
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => video.pause()).catch(() => { /* autoplay blocked, thumbnail stays on poster */ });
+            }
+        };
+        if (video.readyState >= 2) prime();
+        else video.addEventListener('loadeddata', prime, { once: true });
+    }
+
+    function setupThumbnailVideo(container, video) {
+        if (thumbnailObserver) thumbnailObserver.observe(video);
+        else loadAndPrimeVideo(video); // no IntersectionObserver support — load immediately
+
+        // Hover-to-play is a mouse-only affordance; touch devices rely on the primed static frame
+        // plus tap-to-open-modal instead, since there is no hover state to trigger playback.
+        if (!isTouchDevice) {
+            container.addEventListener('mouseenter', () => { loadAndPrimeVideo(video); video.play().catch(()=>{}); });
+            container.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+        }
     }
 
     function getThumbnailHtml(item, isVideo, isAudio) {
@@ -798,8 +849,8 @@
                     <i id="icon-${item.id}" data-lucide="play" class="w-6 h-6 ml-1"></i>
                 </div>
             </div>`;
-        if (isVideo) return `<video src="${src}" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0" muted playsinline loop></video>`;
-        return `<img src="${src}" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0" />`;
+        if (isVideo) return `<video data-src="${src}" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0" muted playsinline webkit-playsinline="true" preload="metadata" disablepictureinpicture disableremoteplayback></video>`;
+        return `<img src="${src}" loading="lazy" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0" />`;
     }
 
     function getAssetUrl(item) {
@@ -864,19 +915,27 @@
             </div>
         `).join('');
 
-        document.getElementById('testimonials-grid').innerHTML = TESTIMONIALS.map((t, i) => `
-            <div class="testimonial-card group p-6 border border-neutral-800 transition-colors bg-neutral-900/10 reveal-on-scroll relative overflow-hidden" style="transition-delay:${i*80}ms">
-                <div class="text-neutral-700 text-4xl font-black leading-none mb-4 select-none">"</div>
-                <p class="text-neutral-400 text-sm font-mono leading-loose mb-6">${t.text}</p>
-                <div class="border-t border-neutral-800 pt-4 flex items-center justify-between">
-                    <div>
-                        <p class="text-white text-xs font-bold tracking-wide">${t.name}</p>
-                        <p class="text-neutral-600 text-[10px] font-mono">${t.handle}</p>
+        const testGrid = document.getElementById('testimonials-grid');
+        if (!TESTIMONIALS.length) {
+            testGrid.innerHTML = `<div class="col-span-full py-16 flex flex-col items-center justify-center border-2 border-dashed border-neutral-800 text-neutral-600 font-mono bg-neutral-900/20">
+                <i data-lucide="message-square" class="w-8 h-8 mb-3 opacity-50"></i>
+                <p class="text-sm tracking-widest">NO REVIEWS YET — BE THE FIRST</p>
+            </div>`;
+        } else {
+            testGrid.innerHTML = TESTIMONIALS.map((t, i) => `
+                <div class="testimonial-card group p-6 border border-neutral-800 transition-colors bg-neutral-900/10 reveal-on-scroll relative overflow-hidden" style="transition-delay:${i*80}ms">
+                    <div class="text-neutral-700 text-4xl font-black leading-none mb-4 select-none">"</div>
+                    <p class="text-neutral-400 text-sm font-mono leading-loose mb-6">${t.text}</p>
+                    <div class="border-t border-neutral-800 pt-4 flex items-center justify-between">
+                        <div>
+                            <p class="text-white text-xs font-bold tracking-wide">${t.name}</p>
+                            <p class="text-neutral-600 text-[10px] font-mono">${t.handle}</p>
+                        </div>
+                        <span class="text-[9px] font-mono border border-neutral-800 px-2 py-1 text-neutral-700 tracking-widest">${t.project}</span>
                     </div>
-                    <span class="text-[9px] font-mono border border-neutral-800 px-2 py-1 text-neutral-700 tracking-widest">${t.project}</span>
                 </div>
-            </div>
-        `).join('');
+            `).join('');
+        }
         lucide.createIcons();
     }
 
@@ -1091,6 +1150,9 @@
 
     // ---- SMOOTH SCROLL ----
     function initSmoothScroll() {
+        // Skip on touch devices — native momentum scroll feels better and this saves
+        // a continuous rAF loop, which matters more on mobile battery/CPU budgets.
+        if (isTouchDevice) return;
         try {
             const LenisClass = window.Lenis || (window.lenis && window.lenis.Lenis);
             if (!LenisClass) return;
@@ -1135,6 +1197,9 @@
 
     // ---- CURSOR ----
     function initCursor() {
+        // No mouse on touch devices — skip entirely rather than running a rAF loop
+        // that repositions a cursor no one can see (the CSS above also hides it).
+        if (isTouchDevice) return;
         const dot = document.getElementById('cursor-dot');
         const ring = document.getElementById('cursor-ring');
         let mx=0,my=0,rx=0,ry=0;
@@ -1149,35 +1214,67 @@
 
     // ---- PARTICLE CANVAS ----
     function initWireframe() {
+        // Respect reduced-motion preference and skip entirely — this loop runs every
+        // frame indefinitely and isn't essential to the site's function.
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
         const canvas = document.getElementById('wireframe-canvas');
         const ctx = canvas.getContext('2d');
-        let w,h,particles=[],mx=0,my=0;
-        const resize = () => { w=canvas.width=window.innerWidth; h=canvas.height=window.innerHeight; };
-        const createParticles = () => {
-            particles=[];
-            const count = Math.floor((w*h)/12000);
-            for(let i=0;i<count;i++) particles.push({ x:Math.random()*w, y:Math.random()*h, vx:(Math.random()-0.5)*0.3, vy:(Math.random()-0.5)*0.3, size:Math.random()*1.5, alpha:Math.random()*0.5+0.1 });
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        let w, h, particles = [], mx = -9999, my = -9999;
+        // Touch devices get a much lighter particle field (no mouse to interact with them
+        // anyway) and the connecting-line pass, which is O(n^2), is skipped there entirely.
+        const density = isTouchDevice ? 24000 : 12000;
+        const maxParticles = isTouchDevice ? 60 : 220;
+
+        const resize = () => {
+            w = window.innerWidth; h = window.innerHeight;
+            canvas.width = w * dpr; canvas.height = h * dpr;
+            canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         };
+        const createParticles = () => {
+            const count = Math.min(Math.floor((w * h) / density), maxParticles);
+            particles = Array.from({ length: count }, () => ({
+                x: Math.random() * w, y: Math.random() * h,
+                vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3,
+                size: Math.random() * 1.5, alpha: Math.random() * 0.5 + 0.1,
+            }));
+        };
+
+        let raf;
         const animate = () => {
-            ctx.clearRect(0,0,w,h);
-            ctx.strokeStyle='rgba(255,255,255,0.05)';
-            particles.forEach((p,i) => {
-                const dx=p.x-mx, dy=p.y-my, d=Math.sqrt(dx*dx+dy*dy);
-                if(d<200){const f=(200-d)/200; p.x+=(dx/d)*f*2; p.y+=(dy/d)*f*2;}
-                p.x+=p.vx; p.y+=p.vy;
-                if(p.x<0||p.x>w) p.vx*=-1;
-                if(p.y<0||p.y>h) p.vy*=-1;
-                ctx.fillStyle=`rgba(255,255,255,${p.alpha})`;
-                ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fill();
-                for(let j=i+1;j<particles.length;j++){
-                    const p2=particles[j], dx2=p.x-p2.x, dy2=p.y-p2.y, d2=Math.sqrt(dx2*dx2+dy2*dy2);
-                    if(d2<100){ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(p2.x,p2.y);ctx.stroke();}
+            ctx.clearRect(0, 0, w, h);
+            ctx.strokeStyle = 'rgba(255,255,255,0.05)';
+            particles.forEach((p, i) => {
+                const dx = p.x - mx, dy = p.y - my, d = Math.sqrt(dx * dx + dy * dy);
+                if (d < 200) { const f = (200 - d) / 200; p.x += (dx / d) * f * 2; p.y += (dy / d) * f * 2; }
+                p.x += p.vx; p.y += p.vy;
+                if (p.x < 0 || p.x > w) p.vx *= -1;
+                if (p.y < 0 || p.y > h) p.vy *= -1;
+                ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+                if (isTouchDevice) return; // skip O(n^2) connecting lines on mobile
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p2 = particles[j], dx2 = p.x - p2.x, dy2 = p.y - p2.y, d2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+                    if (d2 < 100) { ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke(); }
                 }
             });
-            requestAnimationFrame(animate);
+            raf = requestAnimationFrame(animate);
         };
-        window.addEventListener('resize', () => { resize(); createParticles(); });
-        window.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+
+        // Pause the animation loop when the tab isn't visible to save battery/CPU.
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) { cancelAnimationFrame(raf); }
+            else { raf = requestAnimationFrame(animate); }
+        });
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => { resize(); createParticles(); }, 150);
+        });
+        if (!isTouchDevice) window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
         resize(); createParticles(); animate();
     }
     </script>
